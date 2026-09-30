@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { 
   Smartphone, 
   Download, 
@@ -8,7 +8,11 @@ import {
   Layers, 
   Code,
   ShieldCheck,
-  Check
+  Check,
+  Copy,
+  FileArchive,
+  ArrowUpRight,
+  Sparkles
 } from 'lucide-react';
 import { usePWAInstall } from '../hooks/usePWAInstall';
 
@@ -21,7 +25,32 @@ export const InstallGuideModal: React.FC<InstallGuideModalProps> = ({
   isOpen,
   onClose,
 }) => {
-  const { isInstallable, isInstalled, isIOS, install } = usePWAInstall();
+  const { isInstallable, isInstalled, install } = usePWAInstall();
+  const [copiedLink, setCopiedLink] = useState(false);
+  const [downloadingZip, setDownloadingZip] = useState(false);
+
+  const directUrl = window.location.href;
+
+  const handleCopyLink = () => {
+    navigator.clipboard.writeText(directUrl);
+    setCopiedLink(true);
+    setTimeout(() => setCopiedLink(false), 3000);
+  };
+
+  const handleDownloadBuildZip = () => {
+    setDownloadingZip(true);
+    const link = document.createElement('a');
+    link.href = '/build.zip';
+    link.download = 'archive-wage-app-build.zip';
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    setTimeout(() => setDownloadingZip(false), 2000);
+  };
+
+  const handleOpenDirect = () => {
+    window.open(directUrl, '_blank');
+  };
 
   return (
     <div className="space-y-4 pb-28 pt-2">
@@ -33,116 +62,137 @@ export const InstallGuideModal: React.FC<InstallGuideModalProps> = ({
           </div>
           <div>
             <h2 className="text-base sm:text-lg font-bold text-white">
-              تثبيت تطبيق أندرويد (PWA & APK)
+              ملف البناء وتثبيت أندرويد (Build & Install)
             </h2>
             <p className="text-xs text-emerald-200">
-              يمكنك تشغيل هذا التطبيق على هاتفك كتطبيق أندرويد أصلي متكامل بدون إنترنت
+              قم بتحميل حزمة البناء الجاهزة أو تثبيت التطبيق على جهازك
             </p>
           </div>
         </div>
       </div>
 
-      {/* Direct Install CTA Card */}
-      <div className="bg-slate-900 border border-slate-800 rounded-2xl p-5 shadow-lg space-y-4 text-center">
-        <div className="w-16 h-16 rounded-2xl bg-gradient-to-tr from-indigo-600 to-cyan-400 p-0.5 mx-auto shadow-lg shadow-indigo-500/20 flex items-center justify-center">
-          <div className="w-full h-full bg-slate-950 rounded-[14px] flex items-center justify-center text-cyan-400 font-bold text-2xl">
-            17×
-          </div>
+      {/* Primary Action Card: Download Build ZIP */}
+      <div className="bg-gradient-to-b from-slate-900 to-slate-950 border-2 border-emerald-500/50 rounded-2xl p-5 shadow-2xl space-y-4 text-center relative overflow-hidden">
+        <div className="absolute top-0 right-0 w-32 h-32 bg-emerald-500/10 rounded-full blur-2xl pointer-events-none" />
+
+        <div className="w-16 h-16 rounded-2xl bg-emerald-500/20 text-emerald-400 border border-emerald-400/40 p-2 mx-auto flex items-center justify-center shadow-lg shadow-emerald-950/50">
+          <FileArchive className="w-8 h-8" />
         </div>
 
         <div>
-          <h3 className="text-base font-bold text-white mb-1">
-            تطبيق احتساب مستحق الأرشفة الذكي
+          <span className="text-[11px] font-bold text-emerald-400 bg-emerald-950 px-2.5 py-0.5 rounded-full border border-emerald-500/40 mb-2 inline-block">
+            الحزمة الإنتاجية المجمعة جاهزة
+          </span>
+          <h3 className="text-lg font-black text-white">
+            تحميل ملف الـ Build المجمع (ZIP)
           </h3>
-          <p className="text-xs text-slate-400 max-w-sm mx-auto">
-            إصدار أندرويد الرسمي متوافق مع نظام أندرويد (Android OS) وكافة الشاشات.
+          <p className="text-xs text-slate-300 max-w-md mx-auto mt-1 leading-relaxed">
+            يحتوي ملف <strong className="text-emerald-300">build.zip</strong> على كامل ملفات التطبيق المبنية والجاهزة للتشغيل المباشر، أو الرفع على الاستضافة، أو التحويل إلى ملف <strong>APK</strong>.
           </p>
         </div>
 
-        {isInstalled ? (
-          <div className="p-3 bg-emerald-950/60 border border-emerald-500/40 rounded-xl text-emerald-300 text-xs font-semibold flex items-center justify-center gap-2">
-            <CheckCircle2 className="w-4 h-4 text-emerald-400" />
-            <span>التطبيق مثبت بالفعل ويعمل بوضع التطبيق المستقل (Standalone)!</span>
-          </div>
-        ) : isInstallable ? (
+        {/* Big Download Button */}
+        <button
+          onClick={handleDownloadBuildZip}
+          className="w-full py-4 px-5 rounded-2xl bg-gradient-to-r from-emerald-600 via-teal-600 to-emerald-700 hover:from-emerald-500 hover:to-teal-500 text-white font-black text-base flex items-center justify-center gap-2 shadow-xl shadow-emerald-950/70 border border-emerald-400/40 active:scale-[0.98] transition cursor-pointer"
+        >
+          <Download className="w-5 h-5 text-white" />
+          <span>{downloadingZip ? 'جاري بدء التحميل...' : 'تحميل حزمة البناء build.zip (350 KB)'}</span>
+        </button>
+
+        <div className="flex items-center justify-center gap-4 text-[11px] text-slate-400 pt-1">
+          <span className="flex items-center gap-1">
+            <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400" />
+            <span>جاهز للأندرويد</span>
+          </span>
+          <span className="flex items-center gap-1">
+            <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400" />
+            <span>يعمل بدون إنترنت (Offline)</span>
+          </span>
+          <span className="flex items-center gap-1">
+            <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400" />
+            <span>يشمل الأيقونات والمانفيست</span>
+          </span>
+        </div>
+      </div>
+
+      {/* Why couldn't install from browser explanation & Solution */}
+      <div className="bg-slate-900 border border-indigo-500/30 rounded-2xl p-5 shadow-lg space-y-3">
+        <div className="flex items-center gap-2 text-indigo-300 font-bold text-sm">
+          <Sparkles className="w-4 h-4 text-cyan-400" />
+          <h4>لماذا لم يظهر زر التثبيت في المتصفح؟ وكيفية تفعيله:</h4>
+        </div>
+        <p className="text-xs text-slate-300 leading-relaxed">
+          متصفحات أندرويد (مثل Chrome) تمنع التثبيت التلقائي عندما يتم فتح التطبيق داخل <strong>إطار المعاينة (IFrame)</strong> أو داخل محادثة الذكاء الاصطناعي.
+          <br />
+          لحل ذلك وتثبيته مباشرة على هاتفك:
+        </p>
+
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 pt-1">
           <button
-            onClick={install}
-            className="w-full py-3.5 px-4 rounded-xl bg-gradient-to-r from-emerald-600 via-teal-600 to-emerald-700 hover:from-emerald-500 hover:to-teal-500 text-white font-extrabold text-sm flex items-center justify-center gap-2 shadow-xl shadow-emerald-950/60 transition active:scale-95 animate-pulse"
+            onClick={handleOpenDirect}
+            className="py-3 px-4 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-bold flex items-center justify-center gap-2 shadow-md transition active:scale-95"
           >
-            <Download className="w-5 h-5" />
-            <span>تثبيت التطبيق على هاتفك الآن بنقرة واحدة</span>
+            <ArrowUpRight className="w-4 h-4" />
+            <span>فتح في نافذة متصفح مستقلة</span>
           </button>
-        ) : (
-          <div className="p-3 bg-indigo-950/50 border border-indigo-500/30 rounded-xl text-indigo-200 text-xs leading-relaxed text-right">
-            📌 <strong>للتثبيت السريع على هاتف أندرويد:</strong> افتح الرابط في متصفح <strong>Google Chrome</strong>، ثم اضغط على زر القائمة (الثلاث نقاط ⋮) في أعلى المتصفح، واختر <strong>"تثبيت التطبيق"</strong> أو <strong>"الإضافة إلى الشاشة الرئيسية"</strong>.
+
+          <button
+            onClick={handleCopyLink}
+            className="py-3 px-4 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-bold flex items-center justify-center gap-2 border border-slate-700 transition active:scale-95"
+          >
+            {copiedLink ? (
+              <>
+                <Check className="w-4 h-4 text-emerald-400" />
+                <span className="text-emerald-400">تم نسخ الرابط المباشر!</span>
+              </>
+            ) : (
+              <>
+                <Copy className="w-4 h-4 text-slate-400" />
+                <span>نسخ الرابط لفتحه في Chrome</span>
+              </>
+            )}
+          </button>
+        </div>
+
+        {/* In-app install button if available */}
+        {isInstallable && (
+          <div className="pt-2">
+            <button
+              onClick={install}
+              className="w-full py-3 px-4 rounded-xl bg-cyan-600 hover:bg-cyan-500 text-slate-950 font-black text-xs sm:text-sm flex items-center justify-center gap-2 transition"
+            >
+              <Download className="w-4 h-4 text-slate-950" />
+              <span>تثبيت التطبيق الآن على هذا الجهاز</span>
+            </button>
           </div>
         )}
       </div>
 
-      {/* 3 Step Android Install Visual Guide */}
-      <div className="bg-slate-900 border border-slate-800 rounded-2xl p-5 shadow-lg space-y-4">
-        <h4 className="text-sm font-bold text-slate-200 flex items-center gap-2">
-          <Layers className="w-4 h-4 text-cyan-400" />
-          <span>خطوات التثبيت السهل على هواتف أندرويد (Android)</span>
-        </h4>
-
-        <div className="space-y-3 text-xs">
-          <div className="flex items-start gap-3 p-3 rounded-xl bg-slate-950/80 border border-slate-800">
-            <span className="w-6 h-6 rounded-full bg-cyan-500/20 text-cyan-400 font-bold flex items-center justify-center shrink-0 num-tabular">
-              1
-            </span>
-            <div>
-              <strong className="text-white block text-sm mb-0.5">افتح المتصفح على هاتفك</strong>
-              <span className="text-slate-400">
-                قم بفتح رابط التطبيق على هاتفك عبر متصفح Google Chrome أو أي متصفح أندرويد حديث.
-              </span>
-            </div>
-          </div>
-
-          <div className="flex items-start gap-3 p-3 rounded-xl bg-slate-950/80 border border-slate-800">
-            <span className="w-6 h-6 rounded-full bg-cyan-500/20 text-cyan-400 font-bold flex items-center justify-center shrink-0 num-tabular">
-              2
-            </span>
-            <div>
-              <strong className="text-white block text-sm mb-0.5">اختر خيار التثبيت</strong>
-              <span className="text-slate-400">
-                انقر على قائمة المتصفح (⋮) ثم اضغط على خيار <span className="text-emerald-400 font-bold">"تثبيت التطبيق" (Install App)</span> أو "إضافة إلى الشاشة الرئيسية".
-              </span>
-            </div>
-          </div>
-
-          <div className="flex items-start gap-3 p-3 rounded-xl bg-slate-950/80 border border-slate-800">
-            <span className="w-6 h-6 rounded-full bg-cyan-500/20 text-cyan-400 font-bold flex items-center justify-center shrink-0 num-tabular">
-              3
-            </span>
-            <div>
-              <strong className="text-white block text-sm mb-0.5">تم التثبيت بنجاح</strong>
-              <span className="text-slate-400">
-                سيظهر التطبيق كأيقونة أصلية في قائمة تطبيقات هاتفك الأندرويد، ويعمل بدون شريط المتصفح وبدون إنترنت (Offline).
-              </span>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      {/* Build & Package Information for the User */}
+      {/* How to turn build.zip into native APK file */}
       <div className="bg-slate-900 border border-slate-800 rounded-2xl p-5 shadow-lg space-y-3">
-        <h4 className="text-sm font-bold text-slate-200 flex items-center gap-2">
+        <h4 className="text-sm font-bold text-amber-300 flex items-center gap-2">
           <Code className="w-4 h-4 text-amber-400" />
-          <span>ملف البناء وحزم APK (Android APK Build)</span>
+          <span>خطوات تحويل ملف الـ Build إلى تطبيق APK بصيغة أندرويد (.apk)</span>
         </h4>
-        <p className="text-xs text-slate-400 leading-relaxed">
-          تم تهيئة ملفات البناء الرسمية بنجاح عبر Vite و PWA Manifest وأيقونات عالية الدقة. 
-          مجلد البناء الإنتاجي <code className="text-cyan-300 bg-slate-950 px-1.5 py-0.5 rounded">dist/</code> يتم توليده تلقائياً بالأمر:
-        </p>
+        
+        <div className="space-y-2.5 text-xs text-slate-300">
+          <div className="p-3 rounded-xl bg-slate-950 border border-slate-800 space-y-1">
+            <strong className="text-white block">الطريقة الأولى: عبر أداة PWABuilder الرسمية (بدون برمجة)</strong>
+            <p className="text-slate-400">
+              1. انسخ رابط التطبيق المباشر، أو ارفع محتويات ملف <code className="text-cyan-300">build.zip</code> على أي استضافة سريعة (مثل Netlify مجاناً).<br />
+              2. افتح موقع <a href="https://www.pwabuilder.com" target="_blank" rel="noreferrer" className="text-cyan-400 underline font-semibold">PWABuilder.com</a> والصق الرابط.<br />
+              3. اضغط على زر <strong className="text-emerald-400">"Generate Android Package"</strong>، وسيقوم الموقع بتوليد ملف <strong>APK</strong> و <strong>AAB</strong> جاهز للتثبيت على أي هاتف فوراً أو النشر في Google Play.
+            </p>
+          </div>
 
-        <div className="bg-slate-950 p-3 rounded-xl border border-slate-800 font-mono text-xs text-emerald-400 text-left dir-ltr select-all">
-          npm run build
+          <div className="p-3 rounded-xl bg-slate-950 border border-slate-800 space-y-1">
+            <strong className="text-white block">الطريقة الثانية: التثبيت المباشر من Chrome (أسهل وأسرع طريقة)</strong>
+            <p className="text-slate-400">
+              افتح الرابط في Google Chrome على هاتفك الأندرويد، واضغط على الثلاث نقاط (⋮) في الأعلى ثم اختر <strong>"تثبيت التطبيق"</strong>. سيتثبت التطبيق فوراً كأي تطبيق أندرويد عادي دون الحاجة لملف APK!
+            </p>
+          </div>
         </div>
-
-        <p className="text-[11px] text-slate-400">
-          يمكنك تحويل التطبيق أيضاً إلى ملف <strong className="text-slate-200">APK</strong> مباشر لنشره على متجر جوجل بلاي باستخدام أدوات مثل <strong>PWABuilder</strong> أو <strong>Bubblewrap CLI</strong> عبر إدخال رابط التطبيق.
-        </p>
       </div>
     </div>
   );

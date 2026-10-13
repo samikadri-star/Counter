@@ -172,11 +172,18 @@ export const InstallGuideModal: React.FC<InstallGuideModalProps> = ({
 
         <div className="space-y-2 text-xs text-[#111113]/80 leading-relaxed">
           <div className="bg-[#FFF9F2] border-2 border-[#111113] p-3 space-y-1">
-            <strong className="block font-bold text-[#111113]">عبر أداة PWABuilder (مجاناً بدون برمجة):</strong>
+            <strong className="block font-bold text-[#111113]">1. عبر GitHub Actions (توليد APK تلقائي):</strong>
             <p>
-              1. استخرج ملف <code className="font-mono text-[#E35E2D]">build.zip</code> وارفعه على أي استضافة مثل Netlify أو استعمل رابط التطبيق المباشر.<br />
-              2. افتح موقع <a href="https://www.pwabuilder.com" target="_blank" rel="noreferrer" className="text-[#E35E2D] font-bold underline">PWABuilder.com</a>.<br />
-              3. الصق الرابط واضغط "Package for Android" لتحميل ملف <strong>APK</strong> فوري جاهز للتثبيت على أي هاتف!
+              تم تضمين مشروع أندرويد الأصلي في مجلد <code className="font-mono text-[#E35E2D]">android/</code> وضبط ملف <code className="font-mono text-[#E35E2D]">.github/workflows/Build.yml</code>. بمجرد رفع التغييرات إلى GitHub، سيقوم السيرفر بتشغيل Gradle وبناء ملف <strong>Archive-Wage-App-APK (.apk)</strong> تلقائياً وستجده جاهزاً للتحميل في تبويب <strong>Actions</strong> داخل مستودعك!
+            </p>
+          </div>
+
+          <div className="bg-[#FFF9F2] border-2 border-[#111113] p-3 space-y-1">
+            <strong className="block font-bold text-[#111113]">2. عبر أداة PWABuilder (مجاناً بدون برمجة):</strong>
+            <p>
+              1. استخرج ملف <code className="font-mono text-[#E35E2D]">build.zip</code> وارفعه على أي استضافة مجانية أو استخدم رابط التطبيق المباشر.<br />
+              2. افتح موقع <a href="https://www.pwabuilder.com" target="_blank" rel="noreferrer" className="text-[#E35E2D] font-bold underline">PWABuilder.com</a> والصق الرابط.<br />
+              3. اضغط "Generate Android APK" لتحميل ملف <strong>APK</strong> فوري جاهز للتثبيت على أي هاتف!
             </p>
           </div>
         </div>

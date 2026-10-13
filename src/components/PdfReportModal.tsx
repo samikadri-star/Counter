@@ -140,23 +140,26 @@ export const PdfReportModal: React.FC<PdfReportModalProps> = ({
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/85 backdrop-blur-md p-2 sm:p-4 overflow-y-auto">
-      <div className="relative w-full max-w-2xl bg-slate-900 border border-slate-800 rounded-3xl shadow-2xl flex flex-col max-h-[92vh] overflow-hidden my-auto">
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 p-2 sm:p-4 overflow-y-auto">
+      <div className="brutal-card-lg relative w-full max-w-2xl bg-white text-[#111113] flex flex-col max-h-[92vh] overflow-hidden my-auto">
         {/* Modal Top Action Bar (No Print) */}
-        <div className="no-print bg-slate-950 px-4 py-3 border-b border-slate-800 flex items-center justify-between gap-2">
+        <div className="no-print bg-[#F8F7F4] px-4 py-3 border-b-2 border-[#111113] flex items-center justify-between gap-2">
           <div className="flex items-center gap-2">
-            <span className="p-1.5 rounded-lg bg-emerald-500/20 text-emerald-400">
-              <FileCheck className="w-4 h-4" />
+            <span className="p-1 bg-[#111113] text-white">
+              <FileCheck className="w-4 h-4 text-[#E35E2D]" />
             </span>
-            <span className="text-sm font-bold text-white">
-              معاينة وتصدير تقرير PDF
-            </span>
+            <div>
+              <div className="label-mono leading-none text-[#E35E2D]">[EXPORT // PDF]</div>
+              <span className="text-sm font-black text-[#111113]">
+                معاينة وتصدير تقرير المستحقات
+              </span>
+            </div>
           </div>
 
           <div className="flex items-center gap-1.5">
             <button
               onClick={handlePrint}
-              className="flex items-center gap-1 px-3 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-semibold border border-slate-700 transition"
+              className="brutal-btn-secondary px-2.5 py-1.5 text-xs font-bold flex items-center gap-1"
               title="طباعة مباشرة"
             >
               <Printer className="w-3.5 h-3.5" />
@@ -166,7 +169,7 @@ export const PdfReportModal: React.FC<PdfReportModalProps> = ({
             <button
               onClick={handleDownloadPdf}
               disabled={isGenerating}
-              className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-bold transition shadow-md shadow-emerald-950/40 disabled:opacity-50"
+              className="brutal-btn-accent px-3 py-1.5 text-xs font-black flex items-center gap-1.5 disabled:opacity-50"
               title="تنزيل ملف PDF"
             >
               {isGenerating ? (
@@ -184,7 +187,7 @@ export const PdfReportModal: React.FC<PdfReportModalProps> = ({
 
             <button
               onClick={handleShare}
-              className="p-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs border border-slate-700 transition"
+              className="brutal-btn-secondary p-1.5 text-xs"
               title="مشاركة"
             >
               <Share2 className="w-3.5 h-3.5" />
@@ -192,7 +195,7 @@ export const PdfReportModal: React.FC<PdfReportModalProps> = ({
 
             <button
               onClick={onClose}
-              className="p-1.5 rounded-lg bg-slate-800 hover:bg-rose-950 text-slate-400 hover:text-rose-300 border border-slate-700 transition"
+              className="p-1.5 bg-white border-2 border-[#111113] hover:bg-[#FFF9F2] transition"
               title="إغلاق"
             >
               <X className="w-4 h-4" />
@@ -202,14 +205,14 @@ export const PdfReportModal: React.FC<PdfReportModalProps> = ({
 
         {/* Success toast inside modal */}
         {downloadSuccess && (
-          <div className="no-print bg-emerald-900/90 text-emerald-200 px-4 py-2 text-xs flex items-center justify-center gap-1.5 font-medium border-b border-emerald-700">
-            <CheckCircle2 className="w-4 h-4 text-emerald-400" />
+          <div className="no-print bg-emerald-100 text-emerald-950 px-4 py-2 text-xs flex items-center justify-center gap-1.5 font-bold border-b-2 border-[#111113]">
+            <CheckCircle2 className="w-4 h-4 text-emerald-700" />
             <span>تم تصدير ملف PDF بنجاح وحفظه على جهازك!</span>
           </div>
         )}
 
         {/* Scrollable Printable Area */}
-        <div className="p-3 sm:p-6 overflow-y-auto bg-slate-950/60 flex items-center justify-center">
+        <div className="p-3 sm:p-6 overflow-y-auto bg-[#F8F7F4] flex items-center justify-center">
           {/* Paper Container (Replicating Image 03 exactly in format, elevated with crisp layout) */}
           <div
             ref={reportRef}
@@ -326,11 +329,11 @@ export const PdfReportModal: React.FC<PdfReportModalProps> = ({
         </div>
 
         {/* Modal Bottom Actions */}
-        <div className="no-print bg-slate-950 px-4 py-3 border-t border-slate-800 flex items-center justify-between text-xs text-slate-400">
-          <span>صيغة التقرير: PDF قياسي A4</span>
+        <div className="no-print bg-[#F8F7F4] px-4 py-3 border-t-2 border-[#111113] flex items-center justify-between text-xs font-mono text-[#111113]/70">
+          <span>FORMAT: A4 PORTRAIT // PDF</span>
           <button
             onClick={onClose}
-            className="px-4 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 font-semibold transition"
+            className="brutal-btn-secondary px-3 py-1.5 text-xs font-bold"
           >
             إغلاق المعاينة
           </button>

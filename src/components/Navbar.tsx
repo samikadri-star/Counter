@@ -5,8 +5,8 @@ import {
   Smartphone, 
   Monitor, 
   Share2, 
-  FileSpreadsheet,
-  Coins
+  Coins,
+  FileSpreadsheet
 } from 'lucide-react';
 import { usePWAInstall } from '../hooks/usePWAInstall';
 
@@ -29,7 +29,7 @@ export const Navbar: React.FC<NavbarProps> = ({
   ratePerOp,
   onRateChange,
 }) => {
-  const { isInstallable, isInstalled, install } = usePWAInstall();
+  const { isInstallable, install } = usePWAInstall();
 
   const handleShare = async () => {
     if (navigator.share) {
@@ -40,7 +40,7 @@ export const Navbar: React.FC<NavbarProps> = ({
           url: window.location.href,
         });
       } catch {
-        // user cancelled share
+        // User cancelled
       }
     } else {
       navigator.clipboard.writeText(window.location.href);
@@ -49,18 +49,20 @@ export const Navbar: React.FC<NavbarProps> = ({
   };
 
   return (
-    <header className="sticky top-0 z-40 bg-slate-900/95 backdrop-blur-md border-b border-slate-800 text-white transition-all shadow-md">
-      {/* Top Banner & Developer Signature (As requested in design) */}
-      <div className="bg-gradient-to-r from-indigo-900 via-blue-900 to-indigo-950 py-1 px-4 text-center border-b border-indigo-700/40">
-        <div className="max-w-4xl mx-auto flex items-center justify-between text-xs text-indigo-200">
+    <header className="sticky top-0 z-40 bg-[#F8F7F4] border-b-2 border-[#111113] text-[#111113] transition-all">
+      {/* Top System Kicker & Developer Credit (Variation 1 aesthetic) */}
+      <div className="bg-[#111113] text-white py-1 px-3 sm:px-4">
+        <div className="max-w-4xl mx-auto flex items-center justify-between text-[11px] sm:text-xs">
           <div className="flex items-center gap-2">
-            <span className="inline-block w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
-            <span className="font-medium text-slate-100">تطبيق الأرشفة الذكي للأندرويد</span>
+            <span className="font-mono text-[10px] tracking-widest text-[#E35E2D] font-bold">[01] SYS</span>
+            <span className="font-medium text-slate-200">تطبيق الأرشفة الذكي</span>
           </div>
-          <div className="text-[11px] sm:text-xs font-semibold text-amber-300 flex items-center gap-1.5">
-            <span>تصميم وتطوير:</span>
-            <span className="font-bold text-white tracking-wide">سامي القادري</span>
-            <span className="num-tabular bg-indigo-950/80 px-1.5 py-0.5 rounded text-amber-200 border border-amber-400/20">777484160</span>
+          <div className="flex items-center gap-1.5 font-bold text-slate-100">
+            <span className="text-slate-400 font-normal">تطوير:</span>
+            <span>سامي القادري</span>
+            <span className="num-tabular font-mono text-[10px] bg-white/10 px-1.5 py-0.5 rounded text-amber-300">
+              777484160
+            </span>
           </div>
         </div>
       </div>
@@ -69,26 +71,22 @@ export const Navbar: React.FC<NavbarProps> = ({
       <div className="max-w-4xl mx-auto px-3 sm:px-4 py-2.5 flex items-center justify-between gap-2">
         {/* Brand Lockup */}
         <div className="flex items-center gap-2.5">
-          <div className="w-10 h-10 rounded-xl bg-gradient-to-tr from-indigo-600 via-blue-600 to-cyan-400 p-0.5 shadow-lg shadow-indigo-500/25 flex items-center justify-center shrink-0">
-            <div className="w-full h-full bg-slate-950 rounded-[10px] flex items-center justify-center text-indigo-400 font-bold text-lg">
-              <FileSpreadsheet className="w-5 h-5 text-cyan-400" />
-            </div>
+          <div className="w-10 h-10 bg-[#111113] text-white border-2 border-[#111113] shadow-[2px_2px_0px_#E35E2D] flex items-center justify-center shrink-0">
+            <FileSpreadsheet className="w-5 h-5 text-[#E35E2D]" />
           </div>
           <div>
-            <h1 className="text-base sm:text-lg font-bold tracking-tight text-white leading-tight">
+            <div className="font-mono text-[9px] uppercase tracking-widest text-[#111113]/60 font-bold leading-none mb-0.5">
+              ARCHIVE CALC // V1.0
+            </div>
+            <h1 className="text-base sm:text-lg font-black tracking-tight text-[#111113] leading-none">
               تطبيق احتساب مستحق الأرشفة
             </h1>
-            <p className="text-[11px] text-slate-400 flex items-center gap-1">
-              <span>أجور العمل الأسبوعية</span>
-              <span className="text-slate-600">•</span>
-              <span className="text-amber-400 font-medium num-tabular">1 عملية = {ratePerOp} ريال</span>
-            </p>
           </div>
         </div>
 
-        {/* Quick Actions (Install, Rate, Share, Exit) */}
-        <div className="flex items-center gap-1 sm:gap-2">
-          {/* Rate adjuster quick popover trigger */}
+        {/* Action Controls */}
+        <div className="flex items-center gap-1.5 sm:gap-2">
+          {/* Rate adjuster button */}
           <button
             onClick={() => {
               const res = prompt('أدخل قيمة العملية الواحدة بالريال (الافتراضي 17):', String(ratePerOp));
@@ -99,72 +97,60 @@ export const Navbar: React.FC<NavbarProps> = ({
                 }
               }
             }}
-            className="flex items-center gap-1 px-2.5 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700/80 text-amber-300 text-xs font-medium border border-slate-700 transition active:scale-95"
+            className="flex items-center gap-1 px-2.5 py-1.5 rounded-none bg-[#FFF9F2] text-[#111113] border-2 border-[#111113] shadow-[2px_2px_0px_#111113] hover:translate-x-[1px] hover:translate-y-[1px] hover:shadow-[1px_1px_0px_#111113] transition text-xs font-bold active:translate-x-[2px] active:translate-y-[2px]"
             title="تعديل سعر العملية"
           >
-            <Coins className="w-3.5 h-3.5 text-amber-400" />
-            <span className="num-tabular font-bold">{ratePerOp}</span>
-            <span className="text-[10px] text-slate-400 hidden sm:inline">ريال/عملية</span>
+            <Coins className="w-3.5 h-3.5 text-[#E35E2D]" />
+            <span className="font-mono font-bold text-xs">{ratePerOp}</span>
+            <span className="text-[10px] text-[#111113]/70 hidden sm:inline">ريال</span>
           </button>
 
-          {/* Desktop mobile frame toggle */}
+          {/* Desktop phone frame toggle */}
           <button
             onClick={() => setIsMobileFrame(!isMobileFrame)}
-            className="hidden md:flex items-center gap-1 px-2.5 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs border border-slate-700 transition"
-            title={isMobileFrame ? 'عرض بالشاشة الكاملة' : 'معاينة بمظهر شاشة أندرويد'}
+            className="hidden md:flex items-center gap-1 px-2.5 py-1.5 bg-white text-[#111113] border-2 border-[#111113] shadow-[2px_2px_0px_#111113] text-xs font-bold transition hover:translate-x-[1px] hover:translate-y-[1px] hover:shadow-[1px_1px_0px_#111113]"
+            title={isMobileFrame ? 'عرض بالشاشة الكاملة' : 'معاينة بمظهر شاشة أندروID'}
           >
             {isMobileFrame ? (
               <>
                 <Monitor className="w-3.5 h-3.5" />
-                <span className="text-[11px]">شاشة كاملة</span>
+                <span className="text-[10px] font-mono">DESKTOP</span>
               </>
             ) : (
               <>
-                <Smartphone className="w-3.5 h-3.5 text-cyan-400" />
-                <span className="text-[11px]">مظهر الهاتف</span>
+                <Smartphone className="w-3.5 h-3.5 text-[#E35E2D]" />
+                <span className="text-[10px] font-mono">MOBILE</span>
               </>
             )}
           </button>
 
-          {/* Download Build ZIP Quick Button */}
+          {/* Quick Build / Download Tab Trigger */}
           <button
             onClick={() => setActiveTab('install')}
-            className="flex items-center gap-1 px-2.5 py-1.5 rounded-lg bg-emerald-950/70 hover:bg-emerald-900/80 text-emerald-300 text-xs font-semibold border border-emerald-500/40 transition active:scale-95"
-            title="ملف البناء وتثبيت أندرويد"
+            className="flex items-center gap-1 px-2.5 py-1.5 bg-[#E35E2D] text-white border-2 border-[#111113] shadow-[2px_2px_0px_#111113] text-xs font-bold transition hover:translate-x-[1px] hover:translate-y-[1px] hover:shadow-[1px_1px_0px_#111113] active:translate-x-[2px] active:translate-y-[2px]"
+            title="ملف البناء وحزم APK"
           >
-            <Download className="w-3.5 h-3.5 text-emerald-400" />
-            <span className="text-[11px] font-bold">ملف الـ Build</span>
+            <Download className="w-3.5 h-3.5" />
+            <span className="font-mono text-[11px] font-black">BUILD</span>
           </button>
 
-          {/* Install PWA Button */}
-          {isInstallable && (
-            <button
-              onClick={install}
-              className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500 text-white text-xs font-semibold shadow-md shadow-emerald-900/30 transition active:scale-95 animate-pulse"
-              title="تثبيت التطبيق على جهازك"
-            >
-              <Download className="w-3.5 h-3.5" />
-              <span>تثبيت التطبيق</span>
-            </button>
-          )}
-
-          {/* Share button */}
+          {/* Share */}
           <button
             onClick={handleShare}
-            className="w-8 h-8 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 flex items-center justify-center border border-slate-700 transition active:scale-95"
+            className="w-8 h-8 bg-white border-2 border-[#111113] shadow-[2px_2px_0px_#111113] flex items-center justify-center text-[#111113] hover:translate-x-[1px] hover:translate-y-[1px] transition"
             title="مشاركة التطبيق"
           >
             <Share2 className="w-3.5 h-3.5" />
           </button>
 
-          {/* Exit Button (Requested by user) */}
+          {/* Exit */}
           <button
             onClick={onExitClick}
-            className="flex items-center gap-1 px-2.5 sm:px-3 py-1.5 rounded-lg bg-rose-950/60 hover:bg-rose-900/80 text-rose-300 hover:text-rose-100 text-xs font-medium border border-rose-800/60 transition active:scale-95"
-            title="الخروج من التطبيق"
+            className="flex items-center gap-1 px-2.5 py-1.5 bg-[#111113] text-white border-2 border-[#111113] shadow-[2px_2px_0px_#E35E2D] hover:bg-rose-900 transition text-xs font-bold"
+            title="خروج"
           >
-            <LogOut className="w-3.5 h-3.5 text-rose-400" />
-            <span>خروج</span>
+            <LogOut className="w-3.5 h-3.5 text-[#E35E2D]" />
+            <span className="text-[11px]">خروج</span>
           </button>
         </div>
       </div>

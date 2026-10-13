@@ -71,67 +71,48 @@ export const NameManagerScreen: React.FC<NameManagerScreenProps> = ({
 
   return (
     <div className="space-y-4 pb-28 pt-2">
-      {/* Top Banner Screen 1 Indicator */}
-      <div className="bg-gradient-to-r from-blue-900 via-indigo-900 to-slate-900 border border-indigo-500/20 rounded-2xl p-4 shadow-xl">
-        <div className="flex items-center justify-between">
-          <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-xl bg-indigo-600/30 border border-indigo-400/30 flex items-center justify-center text-cyan-400">
-              <Users className="w-5 h-5" />
-            </div>
-            <div>
-              <h2 className="text-base sm:text-lg font-bold text-white">
-                شاشة إضافة اسم جديد
-              </h2>
-              <p className="text-xs text-indigo-200">
-                تسجيل وحفظ أسماء الموظفين والأرشيفيين للاستخدام في شاشة الاحتساب
-              </p>
-            </div>
-          </div>
-
-          <button
-            onClick={onNavigateToCalculator}
-            className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-cyan-500/20 hover:bg-cyan-500/30 text-cyan-300 text-xs font-semibold border border-cyan-400/30 transition active:scale-95"
-          >
-            <span>شاشة الاحتساب</span>
-            <ArrowRight className="w-3.5 h-3.5 rotate-180" />
-          </button>
+      {/* Top Banner (Variation 1 Style) */}
+      <div className="brutal-card p-4 flex items-center justify-between">
+        <div>
+          <div className="label-mono text-[#E35E2D]">[02] DIRECTORY // USERS</div>
+          <h2 className="text-base sm:text-lg font-black text-[#111113]">
+            شاشة إضافة وإدارة الأسماء
+          </h2>
         </div>
+
+        <button
+          onClick={onNavigateToCalculator}
+          className="brutal-btn px-3 py-1.5 text-xs font-bold flex items-center gap-1.5"
+        >
+          <span>شاشة الاحتساب</span>
+          <ArrowRight className="w-3.5 h-3.5 rotate-180" />
+        </button>
       </div>
 
-      {/* Main Name Entry Box (reflecting Image 02 with modern UI styling) */}
-      <div className="bg-slate-900 border border-indigo-500/30 rounded-2xl shadow-xl overflow-hidden">
-        {/* Purple title bar from Image 02 */}
-        <div className="bg-gradient-to-r from-indigo-950 via-indigo-900 to-indigo-950 px-4 py-3 border-b border-indigo-700/40 text-center">
-          <h3 className="text-sm font-bold text-indigo-100 flex items-center justify-center gap-2">
-            <UserPlus className="w-4 h-4 text-cyan-400" />
-            <span>إضافة اسم جديد</span>
-          </h3>
+      {/* Main Name Input Card */}
+      <div className="brutal-card-tint p-4 sm:p-5">
+        <div className="flex items-center gap-2 border-b-2 border-[#111113] pb-2 mb-3">
+          <UserPlus className="w-4 h-4 text-[#E35E2D]" />
+          <span className="label-mono font-bold text-[#111113]">NEW ENTRY // إدخال اسم جديد</span>
         </div>
 
-        <form onSubmit={handleSave} className="p-4 sm:p-5 space-y-4">
+        <form onSubmit={handleSave} className="space-y-3">
           <div>
-            <label className="block text-xs font-medium text-slate-300 mb-2">
-              الاسم الكامل (الموظف / الأرشيفي):
-            </label>
-            <div className="relative">
-              <input
-                type="text"
-                value={inputName}
-                onChange={(e) => setInputName(e.target.value)}
-                placeholder="ادخل الاسم هنا"
-                autoFocus
-                className="w-full text-base font-semibold text-white bg-slate-950 py-3.5 px-4 rounded-xl border-2 border-indigo-500/40 focus:border-cyan-400 focus:outline-none focus:ring-2 focus:ring-cyan-400/30 placeholder:text-slate-500 transition shadow-inner"
-              />
-            </div>
+            <label className="label-mono block mb-1">الاسم الكامل (الموظف / الأرشيفي):</label>
+            <input
+              type="text"
+              value={inputName}
+              onChange={(e) => setInputName(e.target.value)}
+              placeholder="ادخل الاسم هنا..."
+              autoFocus
+              className="brutal-input w-full py-3 px-3 text-sm font-bold text-[#111113]"
+            />
           </div>
 
-          {/* Feedback Message */}
           {feedback && (
             <div
-              className={`p-3 rounded-xl text-xs font-semibold flex items-center gap-2 transition ${
-                feedback.isError
-                  ? 'bg-rose-950/80 text-rose-200 border border-rose-800'
-                  : 'bg-emerald-950/80 text-emerald-200 border border-emerald-800'
+              className={`p-2.5 border-2 border-[#111113] text-xs font-bold flex items-center gap-2 ${
+                feedback.isError ? 'bg-rose-100 text-rose-950' : 'bg-emerald-100 text-emerald-950'
               }`}
             >
               <Sparkles className="w-4 h-4 shrink-0" />
@@ -139,66 +120,65 @@ export const NameManagerScreen: React.FC<NameManagerScreenProps> = ({
             </div>
           )}
 
-          {/* Save Button (Reflecting dark red / high intent CTA from Image 02) */}
           <button
             type="submit"
-            className="w-full py-3.5 px-4 rounded-xl bg-gradient-to-r from-rose-700 via-red-700 to-rose-800 hover:from-rose-600 hover:to-red-600 active:scale-[0.99] text-white font-extrabold text-base tracking-wide flex items-center justify-center gap-2 shadow-lg shadow-rose-950/60 border border-rose-500/30 transition duration-150"
+            className="brutal-btn w-full py-3 px-4 font-black text-sm flex items-center justify-center gap-2 cursor-pointer"
           >
-            <Check className="w-5 h-5 text-emerald-300 stroke-[3]" />
-            <span>حفظ</span>
+            <Check className="w-4 h-4 text-[#E35E2D] stroke-[3]" />
+            <span>حفظ الاسم في القائمة</span>
           </button>
         </form>
       </div>
 
-      {/* Saved Names Directory & Management */}
-      <div className="bg-slate-900 border border-slate-800 rounded-2xl p-4 shadow-lg space-y-3">
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-slate-800 pb-3">
+      {/* Saved Names Directory */}
+      <div className="brutal-card p-4 space-y-3">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b-2 border-[#111113] pb-3">
           <div className="flex items-center gap-2">
-            <span className="text-xs font-bold text-slate-200">الأسماء المحفوظة حالياً</span>
-            <span className="text-[11px] px-2 py-0.5 rounded-full bg-slate-800 text-cyan-400 font-bold num-tabular border border-slate-700">
-              {names.length} اسم
+            <span className="label-mono">الأسماء المسجلة</span>
+            <span className="font-mono text-xs font-black bg-[#111113] text-white px-2 py-0.5">
+              {names.length}
             </span>
           </div>
 
           <div className="flex items-center gap-2">
-            {/* Search Input */}
+            {/* Search */}
             <div className="relative flex-1 sm:w-48">
               <input
                 type="text"
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 placeholder="بحث في الأسماء..."
-                className="w-full text-xs text-slate-200 bg-slate-950 py-1.5 px-3 pr-8 rounded-lg border border-slate-800 focus:outline-none focus:border-cyan-400"
+                className="brutal-input w-full py-1.5 px-3 pr-8 text-xs font-bold"
               />
-              <Search className="w-3.5 h-3.5 text-slate-500 absolute right-2.5 top-1/2 -translate-y-1/2" />
+              <Search className="w-3.5 h-3.5 text-[#111113]/60 absolute right-2.5 top-1/2 -translate-y-1/2" />
             </div>
 
-            {/* Reset to sample */}
+            {/* Restore default */}
             <button
               onClick={() => {
                 if (confirm('هل تريد استعادة الأسماء التجريبية الافتراضية؟')) {
                   resetNamesToDefault();
                 }
               }}
-              className="p-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-400 hover:text-slate-200 border border-slate-700 transition"
+              className="brutal-btn-secondary p-1.5 text-xs font-bold"
               title="استعادة الأسماء الافتراضية"
             >
-              <RotateCcw className="w-3.5 h-3.5" />
+              <RotateCcw className="w-3.5 h-3.5 text-[#E35E2D]" />
             </button>
           </div>
         </div>
 
-        {/* Names List */}
+        {/* List Items */}
         {filteredNames.length === 0 ? (
-          <div className="text-center py-8 text-slate-500 text-xs">
-            {searchQuery ? 'لم يتم العثور على اسم يطابق البحث' : 'لا توجد أسماء مسجلة بعد'}
+          <div className="text-center py-6 text-slate-500 font-mono text-xs">
+            {searchQuery ? '[NO RESULTS] لم يتم العثور على نتائج' : '[EMPTY] لا توجد أسماء مسجلة'}
           </div>
         ) : (
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 max-h-80 overflow-y-auto pr-1">
             {filteredNames.map((item, idx) => (
               <div
                 key={item.id}
-                className="flex items-center justify-between p-2.5 rounded-xl bg-slate-950/70 border border-slate-800/80 hover:border-slate-700 transition"
+                className="flex items-center justify-between p-2.5 bg-[#FFF9F2] border-2 border-[#111113] transition"
               >
                 {editingId === item.id ? (
                   <div className="flex items-center gap-1.5 flex-1">
@@ -206,19 +186,19 @@ export const NameManagerScreen: React.FC<NameManagerScreenProps> = ({
                       type="text"
                       value={editNameText}
                       onChange={(e) => setEditNameText(e.target.value)}
-                      className="flex-1 bg-slate-900 text-white text-xs font-semibold py-1 px-2 rounded border border-cyan-500 focus:outline-none"
+                      className="brutal-input flex-1 py-1 px-2 text-xs font-bold"
                       autoFocus
                     />
                     <button
                       onClick={() => saveEdit(item.id)}
-                      className="p-1 rounded bg-emerald-600 hover:bg-emerald-500 text-white"
-                      title="حفظ التعديل"
+                      className="p-1 bg-[#111113] text-white"
+                      title="حفظ"
                     >
                       <Check className="w-3.5 h-3.5" />
                     </button>
                     <button
                       onClick={() => setEditingId(null)}
-                      className="p-1 rounded bg-slate-700 hover:bg-slate-600 text-slate-300"
+                      className="p-1 bg-white border border-[#111113]"
                       title="إلغاء"
                     >
                       <X className="w-3.5 h-3.5" />
@@ -227,10 +207,10 @@ export const NameManagerScreen: React.FC<NameManagerScreenProps> = ({
                 ) : (
                   <>
                     <div className="flex items-center gap-2 truncate">
-                      <span className="w-5 h-5 rounded-full bg-slate-800 text-slate-400 text-[10px] flex items-center justify-center font-bold num-tabular shrink-0">
-                        {idx + 1}
+                      <span className="font-mono text-[10px] font-bold bg-[#111113] text-white px-1.5 py-0.5">
+                        {String(idx + 1).padStart(2, '0')}
                       </span>
-                      <span className="text-sm font-semibold text-slate-200 truncate">
+                      <span className="text-sm font-bold text-[#111113] truncate">
                         {item.name}
                       </span>
                     </div>
@@ -238,7 +218,7 @@ export const NameManagerScreen: React.FC<NameManagerScreenProps> = ({
                     <div className="flex items-center gap-1 shrink-0">
                       <button
                         onClick={() => startEdit(item)}
-                        className="p-1 rounded-md text-slate-400 hover:text-cyan-400 hover:bg-slate-800 transition"
+                        className="p-1 text-[#111113] hover:text-[#E35E2D]"
                         title="تعديل الاسم"
                       >
                         <Edit3 className="w-3.5 h-3.5" />
@@ -249,7 +229,7 @@ export const NameManagerScreen: React.FC<NameManagerScreenProps> = ({
                             deleteName(item.id);
                           }
                         }}
-                        className="p-1 rounded-md text-slate-400 hover:text-rose-400 hover:bg-slate-800 transition"
+                        className="p-1 text-[#111113] hover:text-rose-600"
                         title="حذف الاسم"
                       >
                         <Trash2 className="w-3.5 h-3.5" />

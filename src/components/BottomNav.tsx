@@ -17,33 +17,37 @@ export const BottomNav: React.FC<BottomNavProps> = ({
   const tabs = [
     {
       id: 'calculator' as const,
-      label: 'احتساب الأجور',
+      monoLabel: 'CALC',
+      arabicLabel: 'احتساب الأجور',
       icon: Calculator,
       badge: null,
     },
     {
       id: 'names' as const,
-      label: 'إدارة الأسماء',
+      monoLabel: 'USERS',
+      arabicLabel: 'إدارة الأسماء',
       icon: Users,
       badge: namesCount > 0 ? namesCount : null,
     },
     {
       id: 'history' as const,
-      label: 'سجل الترحيل',
+      monoLabel: 'ARCHV',
+      arabicLabel: 'سجل الترحيل',
       icon: Archive,
       badge: batchesCount > 0 ? batchesCount : null,
     },
     {
       id: 'install' as const,
-      label: 'تثبيت أندرويد',
+      monoLabel: 'BUILD',
+      arabicLabel: 'ملف البناء',
       icon: DownloadCloud,
-      badge: 'PWA',
+      badge: 'APK',
     },
   ];
 
   return (
-    <nav className="fixed bottom-0 left-0 right-0 z-40 bg-slate-900/95 backdrop-blur-lg border-t border-slate-800 pb-safe shadow-2xl">
-      <div className="max-w-md mx-auto grid grid-cols-4 h-16 items-center px-1">
+    <nav className="fixed bottom-0 left-0 right-0 z-40 bg-[#F8F7F4] border-t-2 border-[#111113] pb-safe shadow-[0_-4px_0px_rgba(17,17,19,0.06)]">
+      <div className="max-w-md mx-auto grid grid-cols-4 h-16 items-center px-1.5 divide-x-2 divide-[#111113] divide-x-reverse">
         {tabs.map((tab) => {
           const Icon = tab.icon;
           const isActive = activeTab === tab.id;
@@ -51,35 +55,40 @@ export const BottomNav: React.FC<BottomNavProps> = ({
             <button
               key={tab.id}
               onClick={() => setActiveTab(tab.id)}
-              className={`flex flex-col items-center justify-center h-full relative transition-all duration-200 ${
+              className={`flex flex-col items-center justify-center h-full relative transition-all duration-150 ${
                 isActive
-                  ? 'text-cyan-400 font-bold scale-105'
-                  : 'text-slate-400 hover:text-slate-200'
+                  ? 'bg-[#111113] text-white'
+                  : 'bg-transparent text-[#111113] hover:bg-[#FFF9F2]'
               }`}
             >
               <div className="relative">
                 <Icon
-                  className={`w-5 h-5 transition-transform ${
-                    isActive ? 'scale-110 text-cyan-400' : 'text-slate-400'
+                  className={`w-4 h-4 transition-transform ${
+                    isActive ? 'scale-110 text-[#E35E2D]' : 'text-[#111113]'
                   }`}
                 />
                 {tab.badge !== null && (
                   <span
-                    className={`absolute -top-1.5 -right-2.5 text-[9px] px-1 rounded-full font-bold num-tabular leading-tight ${
+                    className={`absolute -top-1.5 -right-3 font-mono text-[8px] px-1 rounded font-black num-tabular border leading-tight ${
                       isActive
-                        ? 'bg-cyan-500 text-slate-950 font-black'
-                        : 'bg-slate-700 text-slate-200'
+                        ? 'bg-[#E35E2D] text-white border-white'
+                        : 'bg-[#111113] text-white border-[#111113]'
                     }`}
                   >
                     {tab.badge}
                   </span>
                 )}
               </div>
-              <span className="text-[11px] mt-1 tracking-tight truncate max-w-[80px]">
-                {tab.label}
-              </span>
+              <div className="flex flex-col items-center mt-1">
+                <span className="font-mono text-[9px] font-bold tracking-widest leading-none">
+                  {tab.monoLabel}
+                </span>
+                <span className="text-[10px] font-bold leading-tight mt-0.5">
+                  {tab.arabicLabel}
+                </span>
+              </div>
               {isActive && (
-                <span className="absolute bottom-1 w-6 h-0.5 rounded-full bg-cyan-400 shadow-sm shadow-cyan-400" />
+                <div className="absolute top-0 left-0 right-0 h-1 bg-[#E35E2D]" />
               )}
             </button>
           );

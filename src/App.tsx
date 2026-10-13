@@ -89,13 +89,11 @@ export default function App() {
   // Confirm Exit logic
   const handleConfirmExit = () => {
     setShowExitModal(false);
-    // If running in window / browser tab, try closing or show exit message
     try {
       window.close();
     } catch {
       // Ignored
     }
-    // Fallback: Clear active day inputs and show goodbye alert
     alert('شكراً لاستخدامك تطبيق احتساب مستحق الأرشفة الذكي. تم إغلاق الجلسة بنجاح.');
   };
 
@@ -154,10 +152,10 @@ export default function App() {
   };
 
   return (
-    <div className="min-h-screen bg-slate-950 text-slate-100 flex flex-col items-center justify-start antialiased selection:bg-indigo-500 selection:text-white">
+    <div className="min-h-screen bg-[#F8F7F4] text-[#111113] flex flex-col items-center justify-start antialiased selection:bg-[#E35E2D] selection:text-white">
       {/* Offline Toast Notification */}
       {!isOnline && (
-        <div className="fixed top-12 left-1/2 -translate-x-1/2 z-50 flex items-center gap-2 bg-amber-600/95 text-white text-xs font-semibold px-4 py-1.5 rounded-full shadow-lg backdrop-blur-sm animate-pulse">
+        <div className="fixed top-12 left-1/2 -translate-x-1/2 z-50 flex items-center gap-2 bg-[#E35E2D] text-white text-xs font-bold px-4 py-1.5 border-2 border-[#111113] shadow-[3px_3px_0px_#111113]">
           <WifiOff className="w-3.5 h-3.5" />
           <span>وضع عدم الاتصال — التطبيق يعمل بكفاءة وأمان بدون إنترنت</span>
         </div>
@@ -166,16 +164,17 @@ export default function App() {
       {/* Main Container or Mobile Frame */}
       {isMobileFrame ? (
         <div className="w-full flex justify-center py-6 px-4">
-          {/* Android Smartphone Bezel Frame */}
-          <div className="w-[390px] h-[844px] bg-slate-900 border-[8px] border-slate-800 rounded-[48px] shadow-2xl overflow-hidden flex flex-col relative ring-1 ring-slate-700/50">
-            {/* Phone Top Notch / Camera Cutout */}
-            <div className="absolute top-2 left-1/2 -translate-x-1/2 w-28 h-5 bg-black rounded-full z-50 flex items-center justify-center">
-              <div className="w-3 h-3 rounded-full bg-slate-800/80 mr-4" />
-              <div className="w-1.5 h-1.5 rounded-full bg-blue-900/60" />
+          {/* Neo-brutalist Smartphone Frame (Variation 1 Style: 390px, border-2 var(--ink), shadow 8px 8px 0 var(--ink)) */}
+          <div className="w-[390px] h-[840px] bg-[#F8F7F4] border-4 border-[#111113] shadow-[8px_8px_0px_#111113] flex flex-col relative overflow-hidden">
+            {/* Top Phone Cutout Bar */}
+            <div className="bg-[#111113] py-1 text-center font-mono text-[9px] text-white uppercase tracking-widest flex items-center justify-between px-3">
+              <span>● ANDROID OS</span>
+              <span className="text-[#E35E2D] font-bold">SMART ARCHIVE V1</span>
+              <span>100% 🔋</span>
             </div>
 
             {/* Scrollable Phone Screen */}
-            <div className="flex-1 overflow-y-auto no-scrollbar pt-6 flex flex-col">
+            <div className="flex-1 overflow-y-auto no-scrollbar flex flex-col">
               <Navbar
                 activeTab={activeTab}
                 setActiveTab={setActiveTab}
@@ -195,13 +194,10 @@ export default function App() {
                 batchesCount={savedBatches.length}
               />
             </div>
-
-            {/* Android Navigation Pill Bar at bottom */}
-            <div className="w-32 h-1 bg-slate-600 rounded-full mx-auto my-1.5 z-50 opacity-60" />
           </div>
         </div>
       ) : (
-        <div className="w-full max-w-xl min-h-screen flex flex-col bg-slate-950 sm:border-x sm:border-slate-800/80 sm:shadow-2xl">
+        <div className="w-full max-w-xl min-h-screen flex flex-col bg-[#F8F7F4] sm:border-x-2 sm:border-[#111113] sm:shadow-[6px_0px_0px_#111113]">
           <Navbar
             activeTab={activeTab}
             setActiveTab={setActiveTab}

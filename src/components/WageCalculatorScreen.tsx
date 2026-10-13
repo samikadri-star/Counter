@@ -9,8 +9,7 @@ import {
   Calculator, 
   Sparkles,
   TrendingUp,
-  AlertCircle,
-  HelpCircle
+  AlertCircle
 } from 'lucide-react';
 import { EmployeeName, PersonWageRecord, DayKey } from '../types';
 import confetti from 'canvas-confetti';
@@ -76,47 +75,38 @@ export const WageCalculatorScreen: React.FC<WageCalculatorScreenProps> = ({
 
   return (
     <div className="space-y-4 pb-28 pt-2">
-      {/* Grand Summary Stat Banner */}
-      <div className="bg-gradient-to-br from-slate-900 via-indigo-950/60 to-slate-900 border border-indigo-500/20 rounded-2xl p-3.5 sm:p-4 shadow-xl relative overflow-hidden">
-        <div className="absolute top-0 right-0 w-48 h-48 bg-indigo-500/10 rounded-full blur-3xl pointer-events-none" />
-        <div className="absolute bottom-0 left-0 w-48 h-48 bg-cyan-500/10 rounded-full blur-3xl pointer-events-none" />
+      {/* 1. Stat Card (Exact Variation 1 Style: #FFF9F2 background, 2px solid #111113, 4px shadow) */}
+      <div className="brutal-card-tint p-4 sm:p-5 relative">
+        <div className="flex items-center justify-between border-b-2 border-[#111113] pb-2 mb-3">
+          <div className="flex items-center gap-2">
+            <span className="w-2.5 h-2.5 bg-[#E35E2D] border border-[#111113]" />
+            <span className="label-mono">WEEKLY SUMMARY // إجمالي الأسبوع</span>
+          </div>
+          <span className="font-mono text-xs font-bold bg-[#111113] text-white px-2 py-0.5">
+            {ratePerOp} YER / OP
+          </span>
+        </div>
 
-        <div className="relative z-10 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 items-end">
           <div>
-            <div className="flex items-center gap-2 mb-1">
-              <span className="p-1 rounded-md bg-indigo-500/20 text-indigo-400">
-                <Calculator className="w-4 h-4" />
-              </span>
-              <h2 className="text-sm font-semibold text-slate-200">
-                إجمالي مستحقات الأسبوع الحالي
-              </h2>
+            <div className="label-mono text-[#111113]/70 mb-1">المبلغ الإجمالي المستحق</div>
+            <div className="text-3xl sm:text-4xl font-black text-[#111113] font-mono tracking-tight flex items-baseline gap-2">
+              <span>{summary.grandTotalAmount.toLocaleString()}</span>
+              <span className="text-base font-bold text-[#E35E2D] font-sans">ريال</span>
             </div>
-            <p className="text-xs text-slate-400">
-              معادلة الاحتساب: <span className="text-indigo-300 font-semibold">مجموع العمليات × {ratePerOp} ريال</span>
-            </p>
           </div>
 
-          <div className="grid grid-cols-2 sm:flex sm:items-center gap-2 sm:gap-4 bg-slate-950/60 p-2.5 rounded-xl border border-slate-800">
-            <div className="text-center sm:text-right px-2">
-              <span className="text-[11px] text-slate-400 block font-medium">إجمالي العمليات</span>
-              <div className="flex items-center justify-center sm:justify-start gap-1">
-                <span className="text-xl sm:text-2xl font-black text-cyan-400 num-tabular">
-                  {summary.grandTotalOps.toLocaleString()}
-                </span>
-                <span className="text-[10px] text-slate-500">عملية</span>
-              </div>
+          <div className="bg-white border-2 border-[#111113] p-2.5 flex items-center justify-between">
+            <div>
+              <span className="label-mono block">إجمالي العمليات</span>
+              <span className="text-xl font-black font-mono text-[#111113]">
+                {summary.grandTotalOps.toLocaleString()}
+              </span>
+              <span className="text-xs text-[#111113]/60 mr-1 font-bold">عملية</span>
             </div>
-
-            <div className="h-8 w-px bg-slate-800 hidden sm:block" />
-
-            <div className="text-center sm:text-right px-2">
-              <span className="text-[11px] text-slate-400 block font-medium">المبلغ المستحق</span>
-              <div className="flex items-center justify-center sm:justify-start gap-1">
-                <span className="text-xl sm:text-2xl font-black text-emerald-400 num-tabular">
-                  {summary.grandTotalAmount.toLocaleString()}
-                </span>
-                <span className="text-[10px] text-slate-500">ريال</span>
-              </div>
+            <div className="text-left font-mono text-[11px] text-[#111113]/70 border-r-2 border-[#111113] pr-3">
+              <div>المعادلة:</div>
+              <div className="font-bold text-[#E35E2D]">{summary.grandTotalOps} × {ratePerOp}</div>
             </div>
           </div>
         </div>
@@ -124,29 +114,29 @@ export const WageCalculatorScreen: React.FC<WageCalculatorScreenProps> = ({
 
       {/* Success Notification Alert */}
       {postingSuccessMessage && (
-        <div className="flex items-center gap-2 p-3 bg-emerald-950/80 border border-emerald-500/40 rounded-xl text-emerald-200 text-xs shadow-lg animate-bounce">
-          <Sparkles className="w-4 h-4 text-emerald-400 shrink-0" />
+        <div className="brutal-card p-3 bg-emerald-100 flex items-center gap-2 text-emerald-950 text-xs font-bold">
+          <Sparkles className="w-4 h-4 text-emerald-700 shrink-0" />
           <span>{postingSuccessMessage}</span>
         </div>
       )}
 
-      {/* If No Names are registered warning */}
+      {/* If No Names Registered */}
       {names.length === 0 && (
-        <div className="p-4 bg-amber-950/40 border border-amber-500/30 rounded-2xl flex items-center justify-between gap-3 text-amber-200 text-xs">
+        <div className="brutal-card p-4 bg-amber-100 flex items-center justify-between gap-3 text-amber-950 text-xs font-bold">
           <div className="flex items-center gap-2">
-            <AlertCircle className="w-5 h-5 text-amber-400 shrink-0" />
+            <AlertCircle className="w-5 h-5 text-amber-700 shrink-0" />
             <span>لا توجد أسماء مسجلة حالياً! قم بإضافة أسماء لتتمكن من اختيارها.</span>
           </div>
           <button
             onClick={onNavigateToNames}
-            className="px-3 py-1.5 rounded-lg bg-amber-500 text-slate-950 font-bold hover:bg-amber-400 shrink-0 transition"
+            className="brutal-btn px-3 py-1.5 text-xs font-bold shrink-0"
           >
             إضافة أسماء
           </button>
         </div>
       )}
 
-      {/* Record Cards List (Styled with high fidelity reflecting Image 01) */}
+      {/* 2. Record Cards List (Variation 1 Card Structure) */}
       <div className="space-y-4">
         {records.map((record, index) => {
           const totalOps = getRecordTotalOps(record);
@@ -155,51 +145,49 @@ export const WageCalculatorScreen: React.FC<WageCalculatorScreenProps> = ({
           return (
             <div
               key={record.id}
-              className="bg-slate-900 border border-slate-800 hover:border-slate-700/80 rounded-2xl shadow-lg overflow-hidden transition-all duration-200"
+              className="brutal-card bg-white p-3 sm:p-4 transition-all"
             >
-              {/* Card Header: Dropdown for Name Selection */}
-              <div className="bg-gradient-to-r from-indigo-900 via-indigo-950 to-slate-900 px-3.5 py-2.5 border-b border-indigo-700/30 flex items-center justify-between gap-2">
-                <div className="flex items-center gap-2 flex-1 max-w-sm">
-                  <span className="w-6 h-6 rounded-full bg-indigo-500/30 text-indigo-300 text-xs font-bold flex items-center justify-center shrink-0 num-tabular">
-                    {index + 1}
+              {/* Record Header */}
+              <div className="flex items-center justify-between gap-2 border-b-2 border-[#111113] pb-2.5 mb-3">
+                <div className="flex items-center gap-2 flex-1">
+                  <span className="font-mono text-xs font-black bg-[#111113] text-white px-2 py-0.5">
+                    [{String(index + 1).padStart(2, '0')}]
                   </span>
-                  
-                  {/* Select Name Dropdown */}
-                  <div className="relative flex-1">
+
+                  {/* Dropdown for Name Selection */}
+                  <div className="relative flex-1 max-w-xs">
                     <select
                       value={record.selectedName}
                       onChange={(e) => updateRecordName(record.id, e.target.value)}
-                      className="w-full bg-slate-950/90 text-white text-sm font-semibold py-1.5 px-3 pr-8 rounded-xl border border-indigo-500/40 focus:outline-none focus:border-cyan-400 focus:ring-1 focus:ring-cyan-400/50 appearance-none cursor-pointer transition"
+                      className="w-full bg-[#FFF9F2] text-[#111113] text-sm font-black py-1.5 px-3 pr-8 border-2 border-[#111113] shadow-[2px_2px_0px_#111113] focus:outline-none focus:shadow-[2px_2px_0px_#E35E2D] appearance-none cursor-pointer"
                     >
                       <option value="" disabled>
                         -- اختار الاسم --
                       </option>
                       {names.map((n) => (
-                        <option key={n.id} value={n.name} className="bg-slate-900 text-white">
+                        <option key={n.id} value={n.name}>
                           {n.name}
                         </option>
                       ))}
                     </select>
-                    <div className="absolute left-2.5 top-1/2 -translate-y-1/2 pointer-events-none text-indigo-300 text-xs">
+                    <div className="absolute left-2.5 top-1/2 -translate-y-1/2 pointer-events-none font-mono text-xs text-[#111113]">
                       ▼
                     </div>
                   </div>
                 </div>
 
                 <div className="flex items-center gap-1.5">
-                  {/* Quick Add Name shortcut */}
                   <button
                     onClick={onNavigateToNames}
-                    className="p-1.5 rounded-lg bg-indigo-950 hover:bg-indigo-900 text-indigo-300 hover:text-white border border-indigo-700/40 transition active:scale-95"
-                    title="إضافة اسم جديد للقائمة"
+                    className="p-1.5 bg-white border-2 border-[#111113] text-[#111113] shadow-[2px_2px_0px_#111113] hover:translate-x-[1px] hover:translate-y-[1px] active:translate-x-[2px] active:translate-y-[2px]"
+                    title="إضافة اسم جديد"
                   >
                     <UserPlus className="w-3.5 h-3.5" />
                   </button>
 
-                  {/* Remove Record Button */}
                   <button
                     onClick={() => removeRecord(record.id)}
-                    className="p-1.5 rounded-lg bg-slate-800 hover:bg-rose-950 text-slate-400 hover:text-rose-300 border border-slate-700 hover:border-rose-800/60 transition active:scale-95"
+                    className="p-1.5 bg-white border-2 border-[#111113] text-rose-600 shadow-[2px_2px_0px_#111113] hover:bg-rose-50 hover:translate-x-[1px] hover:translate-y-[1px] active:translate-x-[2px] active:translate-y-[2px]"
                     title="حذف هذا السجل"
                   >
                     <Trash2 className="w-3.5 h-3.5" />
@@ -207,135 +195,119 @@ export const WageCalculatorScreen: React.FC<WageCalculatorScreenProps> = ({
                 </div>
               </div>
 
-              {/* Workdays Grid (2 Columns × 3 Rows like in Image 01) */}
-              <div className="p-3 bg-slate-950/40">
-                <div className="grid grid-cols-2 gap-2 text-xs">
-                  {/* Pair 1: السبت (Sat) and الثلاثاء (Tue) */}
-                  {/* Column 1 (Right): السبت */}
-                  <div className="flex items-center justify-between gap-2 p-2 rounded-xl bg-slate-900/90 border border-slate-800/80">
-                    <label className="font-semibold text-slate-300 shrink-0 select-none">
-                      السبت
-                    </label>
-                    <input
-                      type="number"
-                      inputMode="numeric"
-                      min="0"
-                      placeholder="0"
-                      value={record.days.sat === 0 ? '' : record.days.sat}
-                      onChange={(e) =>
-                        updateRecordDay(record.id, 'sat', parseInt(e.target.value) || 0)
-                      }
-                      className="w-20 sm:w-24 text-center font-bold text-sm text-cyan-300 bg-slate-950 py-1.5 px-2 rounded-lg border border-slate-700 focus:border-cyan-400 focus:outline-none focus:ring-1 focus:ring-cyan-400/40 num-tabular transition"
-                    />
-                  </div>
+              {/* Workdays Input Group (Variation 1 Grid) */}
+              <div className="grid grid-cols-2 sm:grid-cols-3 gap-2.5 mb-3">
+                {/* Saturday */}
+                <div>
+                  <div className="label-mono mb-1">السبت // SAT</div>
+                  <input
+                    type="number"
+                    inputMode="numeric"
+                    min="0"
+                    placeholder="0"
+                    value={record.days.sat === 0 ? '' : record.days.sat}
+                    onChange={(e) =>
+                      updateRecordDay(record.id, 'sat', parseInt(e.target.value) || 0)
+                    }
+                    className="brutal-input w-full py-2 px-2 text-center font-mono font-bold text-base"
+                  />
+                </div>
 
-                  {/* Column 2 (Left): الثلاثاء */}
-                  <div className="flex items-center justify-between gap-2 p-2 rounded-xl bg-slate-900/90 border border-slate-800/80">
-                    <label className="font-semibold text-slate-300 shrink-0 select-none">
-                      الثلاثاء
-                    </label>
-                    <input
-                      type="number"
-                      inputMode="numeric"
-                      min="0"
-                      placeholder="0"
-                      value={record.days.tue === 0 ? '' : record.days.tue}
-                      onChange={(e) =>
-                        updateRecordDay(record.id, 'tue', parseInt(e.target.value) || 0)
-                      }
-                      className="w-20 sm:w-24 text-center font-bold text-sm text-cyan-300 bg-slate-950 py-1.5 px-2 rounded-lg border border-slate-700 focus:border-cyan-400 focus:outline-none focus:ring-1 focus:ring-cyan-400/40 num-tabular transition"
-                    />
-                  </div>
+                {/* Sunday */}
+                <div>
+                  <div className="label-mono mb-1">الأحد // SUN</div>
+                  <input
+                    type="number"
+                    inputMode="numeric"
+                    min="0"
+                    placeholder="0"
+                    value={record.days.sun === 0 ? '' : record.days.sun}
+                    onChange={(e) =>
+                      updateRecordDay(record.id, 'sun', parseInt(e.target.value) || 0)
+                    }
+                    className="brutal-input w-full py-2 px-2 text-center font-mono font-bold text-base"
+                  />
+                </div>
 
-                  {/* Pair 2: الأحد (Sun) and الأربعاء (Wed) */}
-                  <div className="flex items-center justify-between gap-2 p-2 rounded-xl bg-slate-900/90 border border-slate-800/80">
-                    <label className="font-semibold text-slate-300 shrink-0 select-none">
-                      الأحد
-                    </label>
-                    <input
-                      type="number"
-                      inputMode="numeric"
-                      min="0"
-                      placeholder="0"
-                      value={record.days.sun === 0 ? '' : record.days.sun}
-                      onChange={(e) =>
-                        updateRecordDay(record.id, 'sun', parseInt(e.target.value) || 0)
-                      }
-                      className="w-20 sm:w-24 text-center font-bold text-sm text-cyan-300 bg-slate-950 py-1.5 px-2 rounded-lg border border-slate-700 focus:border-cyan-400 focus:outline-none focus:ring-1 focus:ring-cyan-400/40 num-tabular transition"
-                    />
-                  </div>
+                {/* Monday */}
+                <div>
+                  <div className="label-mono mb-1">الإثنين // MON</div>
+                  <input
+                    type="number"
+                    inputMode="numeric"
+                    min="0"
+                    placeholder="0"
+                    value={record.days.mon === 0 ? '' : record.days.mon}
+                    onChange={(e) =>
+                      updateRecordDay(record.id, 'mon', parseInt(e.target.value) || 0)
+                    }
+                    className="brutal-input w-full py-2 px-2 text-center font-mono font-bold text-base"
+                  />
+                </div>
 
-                  <div className="flex items-center justify-between gap-2 p-2 rounded-xl bg-slate-900/90 border border-slate-800/80">
-                    <label className="font-semibold text-slate-300 shrink-0 select-none">
-                      الأربعاء
-                    </label>
-                    <input
-                      type="number"
-                      inputMode="numeric"
-                      min="0"
-                      placeholder="0"
-                      value={record.days.wed === 0 ? '' : record.days.wed}
-                      onChange={(e) =>
-                        updateRecordDay(record.id, 'wed', parseInt(e.target.value) || 0)
-                      }
-                      className="w-20 sm:w-24 text-center font-bold text-sm text-cyan-300 bg-slate-950 py-1.5 px-2 rounded-lg border border-slate-700 focus:border-cyan-400 focus:outline-none focus:ring-1 focus:ring-cyan-400/40 num-tabular transition"
-                    />
-                  </div>
+                {/* Tuesday */}
+                <div>
+                  <div className="label-mono mb-1">الثلاثاء // TUE</div>
+                  <input
+                    type="number"
+                    inputMode="numeric"
+                    min="0"
+                    placeholder="0"
+                    value={record.days.tue === 0 ? '' : record.days.tue}
+                    onChange={(e) =>
+                      updateRecordDay(record.id, 'tue', parseInt(e.target.value) || 0)
+                    }
+                    className="brutal-input w-full py-2 px-2 text-center font-mono font-bold text-base"
+                  />
+                </div>
 
-                  {/* Pair 3: الإثنين (Mon) and الخميس (Thu) */}
-                  <div className="flex items-center justify-between gap-2 p-2 rounded-xl bg-slate-900/90 border border-slate-800/80">
-                    <label className="font-semibold text-slate-300 shrink-0 select-none">
-                      الإثنين
-                    </label>
-                    <input
-                      type="number"
-                      inputMode="numeric"
-                      min="0"
-                      placeholder="0"
-                      value={record.days.mon === 0 ? '' : record.days.mon}
-                      onChange={(e) =>
-                        updateRecordDay(record.id, 'mon', parseInt(e.target.value) || 0)
-                      }
-                      className="w-20 sm:w-24 text-center font-bold text-sm text-cyan-300 bg-slate-950 py-1.5 px-2 rounded-lg border border-slate-700 focus:border-cyan-400 focus:outline-none focus:ring-1 focus:ring-cyan-400/40 num-tabular transition"
-                    />
-                  </div>
+                {/* Wednesday */}
+                <div>
+                  <div className="label-mono mb-1">الأربعاء // WED</div>
+                  <input
+                    type="number"
+                    inputMode="numeric"
+                    min="0"
+                    placeholder="0"
+                    value={record.days.wed === 0 ? '' : record.days.wed}
+                    onChange={(e) =>
+                      updateRecordDay(record.id, 'wed', parseInt(e.target.value) || 0)
+                    }
+                    className="brutal-input w-full py-2 px-2 text-center font-mono font-bold text-base"
+                  />
+                </div>
 
-                  <div className="flex items-center justify-between gap-2 p-2 rounded-xl bg-slate-900/90 border border-slate-800/80">
-                    <label className="font-semibold text-slate-300 shrink-0 select-none">
-                      الخميس
-                    </label>
-                    <input
-                      type="number"
-                      inputMode="numeric"
-                      min="0"
-                      placeholder="0"
-                      value={record.days.thu === 0 ? '' : record.days.thu}
-                      onChange={(e) =>
-                        updateRecordDay(record.id, 'thu', parseInt(e.target.value) || 0)
-                      }
-                      className="w-20 sm:w-24 text-center font-bold text-sm text-cyan-300 bg-slate-950 py-1.5 px-2 rounded-lg border border-slate-700 focus:border-cyan-400 focus:outline-none focus:ring-1 focus:ring-cyan-400/40 num-tabular transition"
-                    />
-                  </div>
+                {/* Thursday */}
+                <div>
+                  <div className="label-mono mb-1">الخميس // THU</div>
+                  <input
+                    type="number"
+                    inputMode="numeric"
+                    min="0"
+                    placeholder="0"
+                    value={record.days.thu === 0 ? '' : record.days.thu}
+                    onChange={(e) =>
+                      updateRecordDay(record.id, 'thu', parseInt(e.target.value) || 0)
+                    }
+                    className="brutal-input w-full py-2 px-2 text-center font-mono font-bold text-base"
+                  />
                 </div>
               </div>
 
-              {/* Record Summary Footer (matching the blue bar in Image 01) */}
-              <div className="bg-gradient-to-r from-blue-900/80 via-indigo-900/70 to-blue-900/80 px-3.5 py-2.5 border-t border-indigo-600/30 flex items-center justify-between text-xs sm:text-sm">
-                <div className="flex items-center gap-2">
-                  <span className="font-semibold text-blue-200">عدد العمليات:</span>
-                  <span className="font-extrabold text-white text-base num-tabular bg-blue-950/90 px-2.5 py-0.5 rounded-lg border border-blue-400/30">
+              {/* Record Summary Footer */}
+              <div className="bg-[#FFF9F2] border-2 border-[#111113] p-2.5 flex items-center justify-between text-xs">
+                <div className="flex items-center gap-1.5">
+                  <span className="label-mono">العمليات:</span>
+                  <span className="font-mono font-black text-sm bg-[#111113] text-white px-2 py-0.5">
                     {totalOps}
                   </span>
                 </div>
 
-                <div className="flex items-center gap-2">
-                  <span className="font-semibold text-emerald-200">المبلغ:</span>
-                  <div className="flex items-center gap-1 bg-emerald-950/80 px-2.5 py-0.5 rounded-lg border border-emerald-400/30">
-                    <span className="font-extrabold text-emerald-300 text-base num-tabular">
-                      {dueAmount.toLocaleString()}
-                    </span>
-                    <span className="text-[10px] text-emerald-400/80 font-medium">ريال</span>
-                  </div>
+                <div className="flex items-center gap-1.5">
+                  <span className="label-mono">المستحق:</span>
+                  <span className="font-mono font-black text-sm text-[#E35E2D] bg-white border border-[#111113] px-2 py-0.5">
+                    {dueAmount.toLocaleString()} ريال
+                  </span>
                 </div>
               </div>
             </div>
@@ -343,91 +315,89 @@ export const WageCalculatorScreen: React.FC<WageCalculatorScreenProps> = ({
         })}
       </div>
 
-      {/* Button: إضافة سجل (Add new record button) */}
-      <div className="pt-2">
+      {/* Button: Add Record */}
+      <div className="pt-1">
         <button
           onClick={() => addRecord()}
-          className="w-full py-3 px-4 rounded-xl bg-gradient-to-r from-indigo-800 via-indigo-700 to-blue-800 hover:from-indigo-700 hover:to-blue-700 text-white font-bold text-sm flex items-center justify-center gap-2 shadow-lg shadow-indigo-950/50 border border-indigo-500/30 active:scale-[0.99] transition"
+          className="brutal-btn-secondary w-full py-3 px-4 font-bold text-sm flex items-center justify-center gap-2 cursor-pointer"
         >
-          <Plus className="w-5 h-5 text-cyan-300" />
-          <span>إضافة سجل جديد</span>
+          <Plus className="w-4 h-4 text-[#E35E2D]" />
+          <span>+ إضافة سجل موظف جديد</span>
         </button>
       </div>
 
-      {/* Main Operations Action Bar (Recreating the 4 bottom buttons from Image 01 in modern palette) */}
-      <div className="pt-3">
-        <div className="text-xs font-semibold text-slate-400 mb-2 flex items-center gap-1.5 px-1">
-          <TrendingUp className="w-3.5 h-3.5 text-indigo-400" />
-          <span>إجراءات وعمليات المستحقات</span>
+      {/* 4 Action Buttons Bar (Neo-brutalist Variation 1) */}
+      <div className="pt-2">
+        <div className="label-mono mb-2 flex items-center gap-1">
+          <TrendingUp className="w-3.5 h-3.5 text-[#E35E2D]" />
+          <span>ACTIONS // إجراءات وعمليات السجلات</span>
         </div>
 
         <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
-          {/* Button 1: ترحيل */}
+          {/* Post/Archive */}
           <button
             onClick={() => setShowPostingConfirm(true)}
             disabled={summary.grandTotalOps === 0}
-            className={`py-3 px-3 rounded-xl font-bold text-xs sm:text-sm flex flex-col items-center justify-center gap-1.5 shadow-md transition active:scale-95 ${
+            className={`py-3 px-2 font-black text-xs flex flex-col items-center justify-center gap-1.5 transition ${
               summary.grandTotalOps > 0
-                ? 'bg-gradient-to-b from-indigo-600 to-indigo-800 hover:from-indigo-500 hover:to-indigo-700 text-white border border-indigo-400/40 shadow-indigo-900/40'
-                : 'bg-slate-800/60 text-slate-500 cursor-not-allowed border border-slate-700/50'
+                ? 'brutal-btn-accent cursor-pointer'
+                : 'bg-slate-200 text-slate-500 border-2 border-slate-300 cursor-not-allowed shadow-none'
             }`}
           >
-            <Send className="w-4 h-4 text-cyan-300" />
+            <Send className="w-4 h-4" />
             <span>ترحيل السجلات</span>
           </button>
 
-          {/* Button 2: مسح الحقول */}
+          {/* Clear Inputs */}
           <button
             onClick={() => setShowClearConfirm(true)}
-            className="py-3 px-3 rounded-xl bg-gradient-to-b from-slate-800 to-slate-900 hover:from-slate-700 hover:to-slate-800 text-slate-200 font-bold text-xs sm:text-sm flex flex-col items-center justify-center gap-1.5 border border-slate-700 shadow-md transition active:scale-95"
+            className="brutal-btn-secondary py-3 px-2 font-bold text-xs flex flex-col items-center justify-center gap-1.5 cursor-pointer"
           >
-            <RotateCcw className="w-4 h-4 text-amber-400" />
+            <RotateCcw className="w-4 h-4 text-[#E35E2D]" />
             <span>مسح الحقول</span>
           </button>
 
-          {/* Button 3: طباعة PDF */}
+          {/* Print PDF */}
           <button
             onClick={onOpenPdfModal}
-            className="py-3 px-3 rounded-xl bg-gradient-to-b from-emerald-600 to-teal-800 hover:from-emerald-500 hover:to-teal-700 text-white font-bold text-xs sm:text-sm flex flex-col items-center justify-center gap-1.5 border border-emerald-400/40 shadow-md shadow-emerald-950/40 transition active:scale-95"
+            className="brutal-btn py-3 px-2 font-black text-xs flex flex-col items-center justify-center gap-1.5 cursor-pointer"
           >
-            <FileText className="w-4 h-4 text-emerald-200" />
+            <FileText className="w-4 h-4 text-[#E35E2D]" />
             <span>طباعة PDF</span>
           </button>
 
-          {/* Button 4: شاشة إضافة اسم جديد */}
+          {/* Add Name Screen */}
           <button
             onClick={onNavigateToNames}
-            className="py-3 px-3 rounded-xl bg-gradient-to-b from-sky-700 to-blue-900 hover:from-sky-600 hover:to-blue-800 text-white font-bold text-xs sm:text-sm flex flex-col items-center justify-center gap-1.5 border border-sky-400/40 shadow-md shadow-blue-950/40 transition active:scale-95"
+            className="brutal-btn-secondary py-3 px-2 font-bold text-xs flex flex-col items-center justify-center gap-1.5 cursor-pointer"
           >
-            <UserPlus className="w-4 h-4 text-sky-200" />
-            <span>شاشة إضافة اسم</span>
+            <UserPlus className="w-4 h-4 text-[#111113]" />
+            <span>إضافة اسم جديد</span>
           </button>
         </div>
       </div>
 
       {/* Confirm Clear Modal */}
       {showClearConfirm && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 backdrop-blur-sm p-4">
-          <div className="w-full max-w-sm rounded-2xl bg-slate-900 border border-slate-800 p-5 shadow-2xl text-slate-100">
-            <div className="w-12 h-12 rounded-full bg-amber-500/20 text-amber-400 flex items-center justify-center mx-auto mb-3">
-              <RotateCcw className="w-6 h-6" />
-            </div>
-            <h3 className="text-base font-bold text-center mb-1">مسح جميع الحقول؟</h3>
-            <p className="text-xs text-slate-400 text-center mb-5">
-              سيتم تصفير أعداد العمليات لجميع الأيام في السجلات الحالية. الأسماء ستبقى محفوظة.
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4">
+          <div className="brutal-card-lg w-full max-w-sm p-5 text-[#111113] bg-white">
+            <div className="label-mono text-[#E35E2D] mb-1">[ALERT] CLEAR DATA</div>
+            <h3 className="text-base font-black mb-2">مسح جميع الحقول؟</h3>
+            <p className="text-xs text-[#111113]/70 mb-5">
+              سيتم تصفير أعداد العمليات لكافة أيام الأسبوع. الأسماء ستبقى محفوظة.
             </p>
             <div className="grid grid-cols-2 gap-2">
               <button
                 onClick={() => setShowClearConfirm(false)}
-                className="py-2.5 px-4 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs font-semibold transition"
+                className="brutal-btn-secondary py-2 px-3 text-xs font-bold"
               >
                 إلغاء
               </button>
               <button
                 onClick={handleConfirmClear}
-                className="py-2.5 px-4 rounded-xl bg-amber-600 hover:bg-amber-500 text-white text-xs font-bold transition shadow-md shadow-amber-900/30"
+                className="brutal-btn-accent py-2 px-3 text-xs font-black"
               >
-                نعم، مسح الحقول
+                تأكيد المسح
               </button>
             </div>
           </div>
@@ -436,37 +406,35 @@ export const WageCalculatorScreen: React.FC<WageCalculatorScreenProps> = ({
 
       {/* Confirm Post Batch Modal */}
       {showPostingConfirm && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 backdrop-blur-sm p-4">
-          <div className="w-full max-w-sm rounded-2xl bg-slate-900 border border-indigo-500/30 p-5 shadow-2xl text-slate-100">
-            <div className="w-12 h-12 rounded-full bg-indigo-500/20 text-cyan-400 flex items-center justify-center mx-auto mb-3">
-              <Send className="w-6 h-6" />
-            </div>
-            <h3 className="text-base font-bold text-center mb-1">ترحيل وحفظ السجلات</h3>
-            <p className="text-xs text-slate-400 text-center mb-4">
-              سيتم حفظ هذا التقرير الأسبوعي في سجل الترحيل والأرشيف لتوثيق أجور الأسبوع.
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4">
+          <div className="brutal-card-lg w-full max-w-sm p-5 text-[#111113] bg-white">
+            <div className="label-mono text-[#E35E2D] mb-1">[ARCHIVE] BATCH POST</div>
+            <h3 className="text-base font-black mb-2">ترحيل وحفظ السجلات</h3>
+            <p className="text-xs text-[#111113]/70 mb-4">
+              سيتم حفظ هذا الأسبوع في سجل الأرشيف لتوثيق مستحقات العمل.
             </p>
-            
-            <div className="bg-slate-950 p-3 rounded-xl border border-slate-800 mb-4 text-xs space-y-1.5">
+
+            <div className="brutal-card-tint p-3 mb-4 text-xs font-mono space-y-1">
               <div className="flex justify-between">
-                <span className="text-slate-400">إجمالي العمليات:</span>
-                <span className="font-bold text-cyan-400 num-tabular">{summary.grandTotalOps} عملية</span>
+                <span>إجمالي العمليات:</span>
+                <span className="font-bold">{summary.grandTotalOps}</span>
               </div>
               <div className="flex justify-between">
-                <span className="text-slate-400">المبلغ المستحق:</span>
-                <span className="font-bold text-emerald-400 num-tabular">{summary.grandTotalAmount.toLocaleString()} ريال</span>
+                <span>المبلغ المستحق:</span>
+                <span className="font-bold text-[#E35E2D]">{summary.grandTotalAmount.toLocaleString()} ريال</span>
               </div>
             </div>
 
             <div className="grid grid-cols-2 gap-2">
               <button
                 onClick={() => setShowPostingConfirm(false)}
-                className="py-2.5 px-4 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs font-semibold transition"
+                className="brutal-btn-secondary py-2 px-3 text-xs font-bold"
               >
                 إلغاء
               </button>
               <button
                 onClick={handlePostBatch}
-                className="py-2.5 px-4 rounded-xl bg-gradient-to-r from-indigo-600 to-cyan-600 hover:from-indigo-500 hover:to-cyan-500 text-white text-xs font-bold transition shadow-lg shadow-indigo-900/40"
+                className="brutal-btn-accent py-2 px-3 text-xs font-black"
               >
                 تأكيد الترحيل
               </button>

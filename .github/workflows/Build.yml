@@ -22,18 +22,19 @@ jobs:
           distribution: 'temurin'
           java-version: '17'
 
-      - name: Setup Android SDK
-        uses: android-actions/setup-android@v3
-
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version: '20'
+
+      - name: Accept Android SDK Licenses
+        run: |
+          yes | $ANDROID_SDK_ROOT/cmdline-tools/latest/bin/sdkmanager --licenses || true
 
       - name: Install dependencies
         run: npm install --legacy-peer-deps
 
-      - name: Build Web Application
+      - name: Build Web Application & Sync Android
         run: npm run build:android
 
       - name: Grant execute permission for gradlew
@@ -44,19 +45,19 @@ jobs:
           cd android
           ./gradlew assembleDebug --no-daemon
 
-      - name: Locate APK file
+      - name: Locate and Copy APK file
         run: |
-          ls -lh android/app/build/outputs/apk/debug/
+          ls -la android/app/build/outputs/apk/debug/
           cp android/app/build/outputs/apk/debug/app-debug.apk ./archive-wage-app.apk
 
-      - name: Upload Android APK Artifact
+      - name: Upload Android APK
         uses: actions/upload-artifact@v4
         with:
           name: Archive-Wage-App-APK
           path: ./archive-wage-app.apk
           retention-days: 30
 
-      - name: Upload Web Build & ZIP Artifact
+      - name: Upload Web Build & ZIP
         uses: actions/upload-artifact@v4
         with:
           name: Web-Build-Dist

@@ -1,0 +1,303 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="12dp"
+    app:cardCornerRadius="14dp"
+    app:cardElevation="4dp"
+    app:cardBackgroundColor="#FFFFFF"
+    app:strokeColor="#111113"
+    app:strokeWidth="2dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <!-- Header: Name Spinner & Delete Button -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#1E1B4B"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:padding="8dp">
+
+            <TextView
+                android:id="@+id/tvCardIndex"
+                android:layout_width="26dp"
+                android:layout_height="26dp"
+                android:background="#3730A3"
+                android:gravity="center"
+                android:text="1"
+                android:textColor="#FFFFFF"
+                android:textSize="12sp"
+                android:textStyle="bold" />
+
+            <Spinner
+                android:id="@+id/spnEmployeeName"
+                android:layout_width="0dp"
+                android:layout_height="38dp"
+                android:layout_marginHorizontal="8dp"
+                android:layout_weight="1"
+                android:background="#FFFFFF"
+                android:paddingHorizontal="8dp" />
+
+            <ImageButton
+                android:id="@+id/btnDeleteRecord"
+                android:layout_width="36dp"
+                android:layout_height="36dp"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:contentDescription="حذف السجل"
+                android:src="@android:drawable/ic_menu_delete"
+                app:tint="#F87171" />
+        </LinearLayout>
+
+        <!-- 6 Work Days Grid (2 Columns x 3 Rows like Image 01) -->
+        <GridLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:alignmentMode="alignMargins"
+            android:columnCount="2"
+            android:padding="10dp"
+            android:useDefaultMargins="true">
+
+            <!-- Saturday -->
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_columnWeight="1"
+                android:background="#F8F7F4"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:padding="6dp">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="السبت"
+                    android:textColor="#111113"
+                    android:textStyle="bold" />
+
+                <EditText
+                    android:id="@+id/etSat"
+                    android:layout_width="60dp"
+                    android:layout_height="38dp"
+                    android:background="#FFFFFF"
+                    android:gravity="center"
+                    android:hint="0"
+                    android:inputType="number"
+                    android:textColor="#111113"
+                    android:textStyle="bold" />
+            </LinearLayout>
+
+            <!-- Tuesday -->
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_columnWeight="1"
+                android:background="#F8F7F4"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:padding="6dp">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="الثلاثاء"
+                    android:textColor="#111113"
+                    android:textStyle="bold" />
+
+                <EditText
+                    android:id="@+id/etTue"
+                    android:layout_width="60dp"
+                    android:layout_height="38dp"
+                    android:background="#FFFFFF"
+                    android:gravity="center"
+                    android:hint="0"
+                    android:inputType="number"
+                    android:textColor="#111113"
+                    android:textStyle="bold" />
+            </LinearLayout>
+
+            <!-- Sunday -->
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_columnWeight="1"
+                android:background="#F8F7F4"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:padding="6dp">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="الأحد"
+                    android:textColor="#111113"
+                    android:textStyle="bold" />
+
+                <EditText
+                    android:id="@+id/etSun"
+                    android:layout_width="60dp"
+                    android:layout_height="38dp"
+                    android:background="#FFFFFF"
+                    android:gravity="center"
+                    android:hint="0"
+                    android:inputType="number"
+                    android:textColor="#111113"
+                    android:textStyle="bold" />
+            </LinearLayout>
+
+            <!-- Wednesday -->
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_columnWeight="1"
+                android:background="#F8F7F4"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:padding="6dp">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="الأربعاء"
+                    android:textColor="#111113"
+                    android:textStyle="bold" />
+
+                <EditText
+                    android:id="@+id/etWed"
+                    android:layout_width="60dp"
+                    android:layout_height="38dp"
+                    android:background="#FFFFFF"
+                    android:gravity="center"
+                    android:hint="0"
+                    android:inputType="number"
+                    android:textColor="#111113"
+                    android:textStyle="bold" />
+            </LinearLayout>
+
+            <!-- Monday -->
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_columnWeight="1"
+                android:background="#F8F7F4"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:padding="6dp">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="الإثنين"
+                    android:textColor="#111113"
+                    android:textStyle="bold" />
+
+                <EditText
+                    android:id="@+id/etMon"
+                    android:layout_width="60dp"
+                    android:layout_height="38dp"
+                    android:background="#FFFFFF"
+                    android:gravity="center"
+                    android:hint="0"
+                    android:inputType="number"
+                    android:textColor="#111113"
+                    android:textStyle="bold" />
+            </LinearLayout>
+
+            <!-- Thursday -->
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_columnWeight="1"
+                android:background="#F8F7F4"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:padding="6dp">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="الخميس"
+                    android:textColor="#111113"
+                    android:textStyle="bold" />
+
+                <EditText
+                    android:id="@+id/etThu"
+                    android:layout_width="60dp"
+                    android:layout_height="38dp"
+                    android:background="#FFFFFF"
+                    android:gravity="center"
+                    android:hint="0"
+                    android:inputType="number"
+                    android:textColor="#111113"
+                    android:textStyle="bold" />
+            </LinearLayout>
+        </GridLayout>
+
+        <!-- Record Summary Bar (matching blue bar in Image 01) -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#1E3A8A"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:padding="10dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="عدد العمليات: "
+                android:textColor="#BFDBFE"
+                android:textSize="13sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/tvTotalOps"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="#172554"
+                android:paddingHorizontal="8dp"
+                android:paddingVertical="2dp"
+                android:text="0"
+                android:textColor="#FFFFFF"
+                android:textSize="14sp"
+                android:textStyle="bold" />
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="1dp"
+                android:layout_weight="1" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="المبلغ: "
+                android:textColor="#A7F3D0"
+                android:textSize="13sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/tvTotalAmount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="#064E3B"
+                android:paddingHorizontal="8dp"
+                android:paddingVertical="2dp"
+                android:text="0 ريال"
+                android:textColor="#6EE7B7"
+                android:textSize="14sp"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+    </LinearLayout>
+</androidx.cardview.widget.CardView>

@@ -45,6 +45,15 @@ export const InstallGuideModal: React.FC<InstallGuideModalProps> = ({
     setTimeout(() => setDownloadingZip(false), 2000);
   };
 
+  const handleDownloadKotlinZip = () => {
+    const link = document.createElement('a');
+    link.href = '/android-kotlin-project.zip';
+    link.download = 'archive-wage-calculator-kotlin-android.zip';
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  };
+
   const handleOpenDirect = () => {
     window.open(directUrl, '_blank');
   };
@@ -54,41 +63,53 @@ export const InstallGuideModal: React.FC<InstallGuideModalProps> = ({
       {/* Top Banner (Variation 1 Style) */}
       <div className="brutal-card p-4 flex items-center justify-between">
         <div>
-          <div className="label-mono text-[#E35E2D]">[04] BUILD & PACKAGING // APK</div>
+          <div className="label-mono text-[#E35E2D]">[04] NATIVE KOTLIN & BUILD // APK</div>
           <h2 className="text-base sm:text-lg font-black text-[#111113]">
-            ملف البناء وتثبيت أندرويد
+            كود كوتلن (Kotlin) وملفات البناء
           </h2>
         </div>
         <div className="font-mono text-xs font-black bg-[#111113] text-white px-2 py-0.5">
-          RELEASE_V1
+          KOTLIN_READY
         </div>
       </div>
 
-      {/* Main Download Card */}
+      {/* Primary Action Card: Download Native Kotlin Project */}
       <div className="brutal-card-tint p-5 sm:p-6 text-center space-y-4">
         <div className="w-16 h-16 bg-[#111113] text-white border-2 border-[#111113] shadow-[3px_3px_0px_#E35E2D] flex items-center justify-center mx-auto">
           <FileArchive className="w-8 h-8 text-[#E35E2D]" />
         </div>
 
         <div>
-          <span className="label-mono bg-white border border-[#111113] px-2 py-0.5 inline-block mb-1">
-            DIST BUNDLE READY // حزمة جاهزة
+          <span className="label-mono bg-white border border-[#111113] px-2 py-0.5 inline-block mb-1 text-[#E35E2D]">
+            100% NATIVE KOTLIN ANDROID
           </span>
           <h3 className="text-lg font-black text-[#111113]">
-            تحميل ملف الـ Build الكامل (ZIP)
+            مشروع تطبيق أندرويد الأصلي بلغة كوتلن (Kotlin)
           </h3>
           <p className="text-xs text-[#111113]/70 max-w-md mx-auto mt-1 leading-relaxed">
-            يحتوي ملف <strong className="font-mono text-[#E35E2D]">build.zip</strong> على كامل ملفات التطبيق المبنية لتعمل كـ PWA أو للتحويل إلى ملف أندرويد <strong className="font-mono">APK</strong>.
+            تم تحويل وبرمجة التطبيق بالكامل بلغة <strong className="text-[#E35E2D]">Kotlin</strong> الأصلية (MainActivity.kt، واجهات XML الأصلية، محرك تصدير PDF، وحفظ محلي).
           </p>
         </div>
 
-        <button
-          onClick={handleDownloadBuildZip}
-          className="brutal-btn-accent w-full py-3.5 px-4 font-black text-sm sm:text-base flex items-center justify-center gap-2 cursor-pointer"
-        >
-          <Download className="w-5 h-5 text-white" />
-          <span>{downloadingZip ? 'جاري بدء التحميل...' : 'تحميل حزمة البناء build.zip (434 KB)'}</span>
-        </button>
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+          {/* Kotlin Project Download */}
+          <button
+            onClick={handleDownloadKotlinZip}
+            className="brutal-btn-accent w-full py-3.5 px-3 font-black text-xs sm:text-sm flex items-center justify-center gap-2 cursor-pointer"
+          >
+            <Download className="w-4 h-4 text-white" />
+            <span>تحميل مشروع كوتلن لأندرويد ستوديو (ZIP)</span>
+          </button>
+
+          {/* Web / PWA Build Download */}
+          <button
+            onClick={handleDownloadBuildZip}
+            className="brutal-btn-secondary w-full py-3.5 px-3 font-black text-xs sm:text-sm flex items-center justify-center gap-2 cursor-pointer"
+          >
+            <Download className="w-4 h-4" />
+            <span>تحميل حزمة الويب المبنية (build.zip)</span>
+          </button>
+        </div>
 
         <div className="flex flex-wrap items-center justify-center gap-3 font-mono text-[11px] text-[#111113]/70 pt-1">
           <span className="flex items-center gap-1">

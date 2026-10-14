@@ -10,7 +10,6 @@ import { BottomNav } from './components/BottomNav';
 import { WageCalculatorScreen } from './components/WageCalculatorScreen';
 import { NameManagerScreen } from './components/NameManagerScreen';
 import { HistoryScreen } from './components/HistoryScreen';
-import { InstallGuideModal } from './components/InstallGuideModal';
 import { PdfReportModal } from './components/PdfReportModal';
 import { ExitConfirmModal } from './components/ExitConfirmModal';
 import { WifiOff } from 'lucide-react';
@@ -39,7 +38,7 @@ export default function App() {
     deleteBatch,
   } = useWageCalculator();
 
-  const [activeTab, setActiveTab] = useState<'calculator' | 'names' | 'history' | 'install'>('calculator');
+  const [activeTab, setActiveTab] = useState<'calculator' | 'names' | 'history'>('calculator');
   const [isMobileFrame, setIsMobileFrame] = useState(false);
   const [showExitModal, setShowExitModal] = useState(false);
   const [showPdfModal, setShowPdfModal] = useState(false);
@@ -139,13 +138,6 @@ export default function App() {
             onNavigateToCalculator={() => setActiveTab('calculator')}
           />
         );
-      case 'install':
-        return (
-          <InstallGuideModal
-            isOpen={true}
-            onClose={() => setActiveTab('calculator')}
-          />
-        );
       default:
         return null;
     }
@@ -164,7 +156,7 @@ export default function App() {
       {/* Main Container or Mobile Frame */}
       {isMobileFrame ? (
         <div className="w-full flex justify-center py-6 px-4">
-          {/* Neo-brutalist Smartphone Frame (Variation 1 Style: 390px, border-2 var(--ink), shadow 8px 8px 0 var(--ink)) */}
+          {/* Neo-brutalist Smartphone Frame (390px, border-4 #111113, shadow 8px 8px 0 #111113) */}
           <div className="w-[390px] h-[840px] bg-[#F8F7F4] border-4 border-[#111113] shadow-[8px_8px_0px_#111113] flex flex-col relative overflow-hidden">
             {/* Top Phone Cutout Bar */}
             <div className="bg-[#111113] py-1 text-center font-mono text-[9px] text-white uppercase tracking-widest flex items-center justify-between px-3">

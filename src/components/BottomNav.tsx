@@ -1,9 +1,9 @@
 import React from 'react';
-import { Calculator, Users, Archive, DownloadCloud } from 'lucide-react';
+import { Calculator, Users, Archive } from 'lucide-react';
 
 interface BottomNavProps {
-  activeTab: 'calculator' | 'names' | 'history' | 'install';
-  setActiveTab: (tab: 'calculator' | 'names' | 'history' | 'install') => void;
+  activeTab: 'calculator' | 'names' | 'history';
+  setActiveTab: (tab: 'calculator' | 'names' | 'history') => void;
   namesCount: number;
   batchesCount: number;
 }
@@ -36,18 +36,11 @@ export const BottomNav: React.FC<BottomNavProps> = ({
       icon: Archive,
       badge: batchesCount > 0 ? batchesCount : null,
     },
-    {
-      id: 'install' as const,
-      monoLabel: 'BUILD',
-      arabicLabel: 'ملف البناء',
-      icon: DownloadCloud,
-      badge: 'APK',
-    },
   ];
 
   return (
     <nav className="fixed bottom-0 left-0 right-0 z-40 bg-[#F8F7F4] border-t-2 border-[#111113] pb-safe shadow-[0_-4px_0px_rgba(17,17,19,0.06)]">
-      <div className="max-w-md mx-auto grid grid-cols-4 h-16 items-center px-1.5 divide-x-2 divide-[#111113] divide-x-reverse">
+      <div className="max-w-md mx-auto grid grid-cols-3 h-16 items-center px-1.5 divide-x-2 divide-[#111113] divide-x-reverse">
         {tabs.map((tab) => {
           const Icon = tab.icon;
           const isActive = activeTab === tab.id;

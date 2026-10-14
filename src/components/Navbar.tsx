@@ -1,6 +1,5 @@
 import React from 'react';
 import { 
-  Download, 
   LogOut, 
   Smartphone, 
   Monitor, 
@@ -8,11 +7,10 @@ import {
   Coins,
   FileSpreadsheet
 } from 'lucide-react';
-import { usePWAInstall } from '../hooks/usePWAInstall';
 
 interface NavbarProps {
-  activeTab: 'calculator' | 'names' | 'history' | 'install';
-  setActiveTab: (tab: 'calculator' | 'names' | 'history' | 'install') => void;
+  activeTab: 'calculator' | 'names' | 'history';
+  setActiveTab: (tab: 'calculator' | 'names' | 'history') => void;
   onExitClick: () => void;
   isMobileFrame: boolean;
   setIsMobileFrame: (val: boolean) => void;
@@ -29,8 +27,6 @@ export const Navbar: React.FC<NavbarProps> = ({
   ratePerOp,
   onRateChange,
 }) => {
-  const { isInstallable, install } = usePWAInstall();
-
   const handleShare = async () => {
     if (navigator.share) {
       try {
@@ -109,7 +105,7 @@ export const Navbar: React.FC<NavbarProps> = ({
           <button
             onClick={() => setIsMobileFrame(!isMobileFrame)}
             className="hidden md:flex items-center gap-1 px-2.5 py-1.5 bg-white text-[#111113] border-2 border-[#111113] shadow-[2px_2px_0px_#111113] text-xs font-bold transition hover:translate-x-[1px] hover:translate-y-[1px] hover:shadow-[1px_1px_0px_#111113]"
-            title={isMobileFrame ? 'عرض بالشاشة الكاملة' : 'معاينة بمظهر شاشة أندروID'}
+            title={isMobileFrame ? 'عرض بالشاشة الكاملة' : 'معاينة بمظهر شاشة أندرويد'}
           >
             {isMobileFrame ? (
               <>
@@ -122,16 +118,6 @@ export const Navbar: React.FC<NavbarProps> = ({
                 <span className="text-[10px] font-mono">MOBILE</span>
               </>
             )}
-          </button>
-
-          {/* Quick Build / Download Tab Trigger */}
-          <button
-            onClick={() => setActiveTab('install')}
-            className="flex items-center gap-1 px-2.5 py-1.5 bg-[#E35E2D] text-white border-2 border-[#111113] shadow-[2px_2px_0px_#111113] text-xs font-bold transition hover:translate-x-[1px] hover:translate-y-[1px] hover:shadow-[1px_1px_0px_#111113] active:translate-x-[2px] active:translate-y-[2px]"
-            title="ملف البناء وحزم APK"
-          >
-            <Download className="w-3.5 h-3.5" />
-            <span className="font-mono text-[11px] font-black">BUILD</span>
           </button>
 
           {/* Share */}
